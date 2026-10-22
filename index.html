@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maand-update · Duin</title>
+<meta name="description" content="Het Duin-maandritueel: werk één keer per maand je saldo's bij en zie wat er veranderde. Gespaard, rente en koersresultaat apart, plus een vooruitblik in banden. Werkt op je telefoon, je saldo's blijven in de opslag van je eigen browser.">
+<meta name="theme-color" content="#12332B">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Duin">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2312332B'/%3E%3Cpath d='M6.5 23.5C13 22.5 19 21 25.5 18.5' stroke='%23E4D9BE' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3Cpath d='M6.5 19C13 17.5 19 14.5 25.5 11.5' stroke='%23C9A35B' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3Cpath d='M6.5 14.5C13 12.5 19 8.5 25.5 5' stroke='%232E9E63' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAI0ElEQVR42u2dz0tldRTA7wM3Llw4ICSDAwYThRKFkIuRmYKpRTPoLKQZqECQXEQUrl4MTMuCKIJAXCVh20erBl21TYUQBp7QQhfaxn/AgWHgdY6dJ0997/l+3Hu/P+7nwifSxpd+v5935pzzPfeaJA6ua1MTJWFYmBRmhbKwJmwIW0JVOBAOhSPwikPbm6rt1YbtXdn2ctL2tpTEfMkPOCCMC/PCqrAtHAsvhBpEwQvb023b43nb84GYRB4R5oR1YR+BCyf4vu29OjASqsQle2cuCzvCcza38Dw3F5bNjVIoMo9ZPrUnvGQj4QIvzQ11ZMxnkYeEBWEXkaFDsXfNmSHf0ospoUJqAT2mIhVzqORa5kFhydo4bA70w4G5NOhK5lFhRThhMyAlTsyp0bxlnhA2yZUho9xa3ZrIS+Zpa7+w+JAl6th01jLPCM9YbMgJdW0my8iMzOBC6ukscmbSDHCZfkyk2c3YZFHBMZt9dz+sz7xCNwM86X6s9NynthPAJfrM4FmfeqmnE0U7iuQEEHw8UZzqZdCowuKBp1S6GmiyCSgGjcDngaaFbuaZd1k08JzdK+eprRAs09WAQLoe5bYFot0as8diQSteuTdde/3bh7U31xbPuPn4wennHXw/6up4O6GXic7QqcgXefXLD11E6eV2d2dzvA1di9zIjcW7Lo7FR5oJPUdnA3oVuZGRO2/n3fGYa/YQmHU2EvoRuc71h7fz/r7Xzz3MxorBfTYUkfsRubFIzPn73z9XHF77/5FNPNEIkUMVWt2db+w9r7K5iJwWDgrDmjlcUqH1SZHbbDIip0XORWEddXhYhdbHnx6z2YicBg560XXU4UkVepb8GZEDzZ0v5tGziZ2Hs/mIHGpkbqSsQq8hACL3I7KjnLkZayr0BiIgcuAi19lQobcQApEDF7nOlgpdRQxEDlzkOtWEG2EROQKRz26gVaEPEQWRAxe5zqEKfYQwiBy4yHWOEBqRYxAZoRE5KpERGpGjEhmhETnK9URoREZoQGSERmRERmhERmSERuQCg9CIjNCAyAiNyIiM0IiMyAiNyAjNQiAyQiMyIiM0IiMyQiOyX9y6/05t7tGtM1678xZCI3J4Ii9+9m7t1+8f1LZ/+/gSP3xzzwexERqRr47GXy9/0FTiizxd/ci11MUVGpFbo1K2i8bt0K9BaET2Jhpr6tCtxBfR10FoRHYajTVd6FfkOpqiIDQiBxmNWxWICI3IQUZjhEbk3NFecVbRuBn6/0NoRE49Gmsum3U0bta6o8uByKlG417abRFE57CFRmT30dgzmcMUGpH9icb1FEPfTJ7Mc4QjNCKfP4p2HY31jeRBRA5PaES+ejAoz2is34dH03XhCI3I3Q0GZd1XdnicHbbQiEw0jkLoootMNI5EaJWqqCL3M6ZJNPZQaBVr4udPCydyloNB3U7FBRyN/RM6j8jsi8h5DQZ10m7T74ObZDPImYsgMtG4IEKrcLGKTDQuoNA3Hz+ITuS8xzQLHo3jjNCuRfZlMMjTo+jiCH394e2gRWYwCKEv0UvLzqXIRGOETq3T4VJkojFCdyV1u0jtSmTGNBG6L24s3j3tfNTRj12IzFE0QgcPg0EIHQVEY4QmGhONEZoxTaIxQjMYBAjNYBBCRyI00RiCF5poDFEIzZgmBC80g0EQhdAMBvnDo88/qX3305Pa0z9+qf37z59n6MfvPbqP0ERjv1FJmwncirX1HxGaaOyXwF89+eJUzE4EboZ+feGFJhq74Y33b52mEf0I3Ax93cIK7bJbUbSj6EaB//7r91Ql9iRKuxXa1ZBQkQaDWhVyWeIwl3YntEZForH7Qg6hU5xFJhr7UciRcnieO8ccjbMq5CgKPRQ6xqPovAq5tNB0p5BtO22RMRjkTyEXeO4cflEYUzT2oZDrB/2bw/GBih9tu24Lw1iisY+FXC/RWH8GT2Y4/DlY6aQXHXo0DqGQuwr928NDgf08+m52t0nIR9GhFXKtBNY0SH8OxkcZrQwyD9Y3YGACIzSF3GWBHfaNEZpCLrpCDqEp5KIq5BCaQi6qQg6hKeSiKuQQmkIuqkIOoSnkoBBCU8ghdNBCU8hB8EJTyEHQQlPIQdBCU8hB8ELrxlPIQRRCqwgUchCF0CoEhRxEIzSFHEQjtG/RmUIOofvCdRFIIYfQQQtNIYfQQXc3KOQQOvfeM4UcRNXl6DftoJADr4TWSNrNlByFHARx9K3FGoUcRDecpOLWYXOAW7AAoeUfhywERMKhCn3AQkAkHKjQVRYCIqGqQm+xEBAJWyr0BgsBkbChQq+xEBAJayp0mYWASCir0LPCCxYDAkcdnlWhJ4VjFgQCRx2eVKGHhW0WBAJHHR5WoUvCKgsCgaMOlxK95F/myaMh8Px5Pqlf8sG4sM/CQKCou+ONQg8I6ywMBIq6O5A0XvKJOeE5iwOBoc7OJRcv+eSIsMMCQWCosyNJs0v+w7LwkkWCQFBXl5NWlxWHeywUBMLeuWKwidAlm+0gSkMI0bl81ntuI/WYsMuCgeeoo2NJJ5f8wQU6HuB5Z2Mh6fSSPzwkVFg48BR1cyjp5pIvmOIGWvDxRlh1M+n2sgJxSThhEcETTszJUtLLJV84KKzQ9QBPuhrq4mDSzyUvMCpssqDgGHVwNEnjkhea4FgcHB9vTyRpXvKC08IzFhdyRp2bTrK45IVnkBpylnkmyfKySE36AXmkGdNJHpfl1Jt0PyCjbsZm6jlzh92PFfrUkHKfeSW1bkaPfeolThQhpRPApb77zClIXbJj8goDTdDjoFHFHColvlw20LRgY33k1tBJrrxrzgwlvl42T122uwkQG5qJvGeOjCUhXJaGjNs9ijukImAO7JgT416lF13KPWKPSFi3B4LwhKZiPdFo3/Z+ruXd2YGKPWDvTH3smD6HTB+ud4zg0Ql8bHu7ans9fukhMLFdlpLoU0/1Ub6zlk/pbxLQX4+hv/Olam0c/ZVzR+AVh7Y3VdurDdu7su3lpO2tk5TiP/dyiX6pMB3EAAAAAElFTkSuQmCC">
+<style>
+:root{
+  --sand:#F4F0E6; --sand2:#ECE6D8; --card:#FFFFFF;
+  --ink:#13221E; --ink2:#3A4842; --mut:#79847E; --faint:#A6AEA8;
+  --pine:#1E4D40; --pine-deep:#12332B; --pine-ink:#0C1F1A;
+  --moss:#2E9E63; --moss-dark:#237A4D; --moss-soft:#E3F2E9; --gold:#C9A35B; --sandbar:#E4D9BE;
+  --line:#E2DCCC; --line-soft:#EAE5D7;
+  --warn:#B45309; --warn-soft:#FDF3E7;
+  --sans:'Helvetica Neue',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-t:env(safe-area-inset-top,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--sand);color:var(--ink);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-weight:600;letter-spacing:-.02em;line-height:1.12}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px}
+.eyebrow{font-size:10.5px;font-weight:650;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:block}
+.lbl{font-size:10.5px;font-weight:650;letter-spacing:.28em;text-transform:uppercase;color:var(--pine);margin:30px 0 12px;display:flex;align-items:center;gap:12px}
+.lbl::after{content:"";flex:1;height:1px;background:var(--line)}
+.num{font-variant-numeric:tabular-nums}
+.mut{color:var(--mut)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- topbar ---------- */
+.top{position:sticky;top:0;z-index:60;background:rgba(244,240,230,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);padding-top:var(--safe-t)}
+.top-in{max-width:560px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink)}
+.brand b{font-size:17px;font-weight:650}
+.brand small{color:var(--mut);font-weight:500;font-size:10.5px;border-left:1px solid var(--line);padding-left:9px;letter-spacing:.1em;text-transform:uppercase}
+.iconbtn{all:unset;cursor:pointer;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:14px;color:var(--ink2);font-size:19px;line-height:1}
+.iconbtn:hover{background:var(--sand2)}
+
+/* ---------- tabs (de drie standen) ---------- */
+.tabs{max-width:560px;margin:0 auto;padding:0 18px 10px;display:flex;gap:4px}
+.tabs .seg{display:flex;flex:1;background:var(--sand2);border-radius:999px;padding:3px;gap:2px}
+.tabs button{all:unset;flex:1;text-align:center;cursor:pointer;font-size:12.5px;font-weight:550;padding:12px 4px;border-radius:999px;color:var(--mut);min-height:44px;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
+.tabs button[aria-selected=true]{background:var(--pine);color:#fff}
+.tabs button .cnt{font-size:10px;opacity:.7;margin-left:5px}
+
+/* ---------- demo-balk ---------- */
+.demobar{background:var(--pine-ink);color:#fff;display:none}
+.demobar.on{display:block}
+.demobar .db-in{max-width:560px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px}
+.demobar b{color:var(--gold);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+.demobar span{color:rgba(255,255,255,.78);flex:1;min-width:150px}
+.demobar button{all:unset;cursor:pointer;background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:9px 14px;font-size:12.5px;min-height:38px;box-sizing:border-box;display:flex;align-items:center}
+
+main{padding:18px 0 150px}
+.view{display:none;animation:fade .35s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.h-eyebrow{margin-bottom:8px}
+h1{font-size:28px;margin-bottom:6px}
+.lead{color:var(--ink2);font-size:15.5px;margin-bottom:18px}
+
+/* ---------- kaarten ---------- */
+.card{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;padding:16px;margin-bottom:10px}
+.card.dark{background:var(--pine-ink);color:#fff;border:none}
+.card h3{font-size:16.5px;margin-bottom:3px}
+.rowline{display:flex;align-items:center;gap:10px}
+.grow{flex:1;min-width:0}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 9px;background:var(--sand2);color:var(--ink2);white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:2px;display:inline-block}
+.chip.moss{background:var(--moss-soft);color:var(--moss-dark)}
+.chip.gold{background:#F7EFDD;color:#8A6A24}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.note{font-size:13px;color:var(--mut);margin-top:6px}
+.insight{background:var(--moss-soft);border-radius:13px;padding:11px 13px;font-size:13.5px;color:var(--pine);margin-top:10px}
+.insight b{font-weight:650}
+
+/* ---------- formulier ---------- */
+label.f{display:block;font-size:12.5px;font-weight:600;color:var(--ink2);margin:12px 0 5px}
+input[type=text],input[type=number],input[type=month],select{width:100%;font-family:var(--sans);font-size:16px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);min-height:48px}
+input:disabled,select:disabled{background:var(--sand2);color:var(--faint)}
+.segtype{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.segtype button{all:unset;cursor:pointer;text-align:center;padding:12px 6px;border-radius:13px;border:1px solid var(--line);font-size:13.5px;background:#fff;min-height:48px;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
+.segtype button[aria-pressed=true]{background:var(--pine);color:#fff;border-color:var(--pine)}
+.amt{position:relative}
+.amt span.eur{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:16px;pointer-events:none}
+.amt input{padding-left:30px;font-variant-numeric:tabular-nums}
+.btn{all:unset;cursor:pointer;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;border-radius:999px;font-size:15px;font-weight:600;padding:13px 20px;min-height:48px;background:var(--pine);color:#fff;transition:.15s}
+.btn:hover{background:var(--pine-deep)}
+.btn[disabled]{opacity:.45;cursor:default}
+.btn.sec{background:#fff;color:var(--pine);border:1px solid var(--line)}
+.btn.sec:hover{background:var(--sand2)}
+.btn.gh{background:transparent;color:var(--pine);border:1px dashed var(--line)}
+.btn.gh:hover{background:var(--sand2)}
+.btn.w{width:100%}
+.btn.sm{font-size:13.5px;padding:9px 14px;min-height:44px}
+.btn.dang{background:#fff;color:#A3341F;border:1px solid #EBC9C0}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* ---------- bronchip (bron op verzoek) ---------- */
+.bronchip{all:unset;cursor:pointer;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:5px 10px;min-height:30px;display:inline-flex;align-items:center;gap:5px}
+.bronchip:hover{background:var(--sand2)}
+.bronnote{font-size:12.5px;color:var(--mut);background:var(--sand2);border-radius:11px;padding:10px 12px;margin-top:8px;line-height:1.55}
+
+/* ---------- rekeningkaart in check-in ---------- */
+.acc{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;padding:15px 16px;margin-bottom:10px}
+.acc.done{border-color:#BFE3CE}
+.acc .prev{font-size:13px;color:var(--mut);margin-top:2px}
+.acc .mut-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+details.menu{margin-top:10px}
+details.menu>summary{list-style:none;cursor:pointer;font-size:13px;color:var(--pine);font-weight:600;padding:11px 2px;min-height:44px;display:flex;align-items:center;gap:7px}
+details.menu>summary::-webkit-details-marker{display:none}
+details.menu>summary::after{content:"▾";font-size:11px;color:var(--mut)}
+details.menu[open]>summary::after{content:"▴"}
+.menubox{border-top:1px solid var(--line-soft);padding-top:10px}
+.menubox h4{font-size:12.5px;font-weight:650;color:var(--ink2);margin:12px 0 2px;letter-spacing:0}
+.menubox p.hint{font-size:12.5px;color:var(--mut)}
+.sub2{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:end}
+
+/* ---------- totaalbalk ---------- */
+.stickybar{position:fixed;left:0;right:0;bottom:0;z-index:55;background:rgba(244,240,230,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:10px 0 calc(10px + var(--safe-b));display:none}
+.stickybar.on{display:block}
+.sb-in{max-width:560px;margin:0 auto;padding:0 18px;display:flex;align-items:center;gap:12px}
+.sb-in .sbt{flex:1;min-width:0}
+.sb-in small{display:block;font-size:11.5px;color:var(--mut)}
+.sb-in b{font-size:19px;font-variant-numeric:tabular-nums;font-weight:650}
+
+/* ---------- hero overzicht ---------- */
+.hero{background:var(--pine-ink);color:#fff;border-radius:22px;padding:22px 20px 16px;margin-bottom:12px}
+.hero small{display:block;font-size:11.5px;color:rgba(255,255,255,.55);letter-spacing:.06em}
+.hero .big{font-size:38px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.05;margin-top:3px}
+.delta{display:inline-flex;align-items:center;margin-top:10px;background:rgba(46,158,99,.16);border:1px solid rgba(126,217,166,.32);color:#7ED9A6;font-size:13px;font-weight:600;border-radius:999px;padding:7px 14px}
+.delta.dn{background:rgba(201,163,91,.14);border-color:rgba(201,163,91,.35);color:#E7C98A}
+.delta.flat{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.8)}
+.hero .sum{border-top:1px solid rgba(255,255,255,.14);padding-top:13px;margin-top:14px;color:rgba(255,255,255,.82);font-size:14.5px}
+.hero .sum b{color:#fff;font-weight:600}
+
+/* ---------- decompositie ---------- */
+.decomp{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;padding:4px 16px}
+.drow{display:flex;align-items:flex-start;gap:11px;padding:13px 0;border-bottom:1px solid var(--line-soft)}
+.drow:last-child{border:none}
+.drow .dot{width:9px;height:9px;border-radius:3px;flex:none;margin-top:7px}
+.drow .nm{flex:1;font-size:14.5px;color:var(--ink2)}
+.drow .nm small{display:block;color:var(--faint);font-size:12.5px;line-height:1.45}
+.drow .val{font-variant-numeric:tabular-nums;font-weight:600;font-size:14.5px;white-space:nowrap}
+.drow .val.up{color:var(--moss-dark)}
+.drow .val.dn{color:var(--warn)}
+.drow .val.flat{color:var(--faint);font-weight:500}
+.drow.sumrow{border-top:1.5px solid var(--line);background:transparent}
+.drow.sumrow .nm{font-weight:650;color:var(--ink)}
+.drow.sumrow .val{font-size:16px}
+
+/* ---------- grafiek ---------- */
+.chartcard{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;padding:14px 10px 10px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;padding:8px 6px 2px;font-size:12px;color:var(--mut)}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px}
+.xax{display:flex;justify-content:space-between;padding:4px 6px 0;font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
+
+/* ---------- vooruitblik ---------- */
+.band{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;padding:16px}
+.band .r{font-size:21px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin:4px 0 2px}
+.aanname{background:var(--sand2);border-radius:13px;padding:11px 13px;font-size:12.5px;color:var(--ink2);margin-top:10px;line-height:1.55}
+
+/* ---------- lege/potentie-staat ---------- */
+.potential{background:var(--card);border:1px dashed var(--line);border-radius:18px;padding:18px;text-align:center}
+.potential svg{margin:2px auto 10px;display:block}
+.potential p{font-size:14px;color:var(--ink2)}
+
+/* ---------- sheet ---------- */
+.veil{position:fixed;inset:0;background:rgba(12,31,26,.45);z-index:80;opacity:0;pointer-events:none;transition:.2s}
+.veil.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:90;background:var(--sand);border-radius:22px 22px 0 0;padding:8px 0 calc(16px + var(--safe-b));transform:translateY(102%);transition:transform .25s cubic-bezier(.3,.8,.4,1);max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.sheet.on{transform:none}
+.sheet .grip{width:40px;height:4px;border-radius:2px;background:var(--line);margin:6px auto 10px}
+.sheet .sh-in{max-width:560px;margin:0 auto;padding:0 18px}
+.sheet h2{font-size:19px;margin-bottom:4px}
+.menulist{margin-top:12px}
+.menulist button{all:unset;cursor:pointer;box-sizing:border-box;display:flex;align-items:center;gap:12px;width:100%;background:#fff;border:1px solid var(--line-soft);border-radius:15px;padding:14px 15px;margin-bottom:8px;min-height:56px;font-size:15px}
+.menulist button small{display:block;color:var(--mut);font-size:12.5px;font-weight:400}
+.menulist button .mi{font-size:18px;width:26px;text-align:center}
+.menulist button b{font-weight:600;display:block}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(86px + var(--safe-b));background:var(--pine-ink);color:#fff;font-size:13.5px;padding:11px 17px;border-radius:999px;z-index:120;opacity:0;pointer-events:none;transition:.25s;max-width:92vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%)}
+
+.foot{margin-top:26px;text-align:center;color:var(--faint);font-size:11.5px;line-height:1.75}
+.foot a{color:var(--mut)}
+
+/* demo-navigatie (prototype-suite) */
+.demo-nav{position:fixed;bottom:18px;right:18px;z-index:999;display:flex;align-items:center;gap:4px;background:rgba(12,31,26,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:6px 8px;box-shadow:0 12px 40px rgba(0,0,0,.35);font-family:'Helvetica Neue',-apple-system,Arial,sans-serif}
+.demo-nav span{font-size:9.5px;font-weight:700;letter-spacing:.18em;color:#C9A35B;padding:0 8px}
+.demo-nav a{font-size:12.5px;color:rgba(255,255,255,.75);text-decoration:none;padding:7px 12px;border-radius:999px;transition:.15s;white-space:nowrap}
+.demo-nav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.demo-nav a.cur{background:#2E9E63;color:#fff;font-weight:600}
+@media(max-width:700px){.demo-nav{left:12px;right:12px;bottom:calc(8px + var(--safe-b));justify-content:center;flex-wrap:wrap;font-size:11px}.demo-nav a{padding:6px 9px;font-size:11.5px}}
+
+/* op mobiel staat de demobalk onderaan in beeld: extra ruimte onder de vaste actiebalk */
+@media(max-width:700px){.stickybar{bottom:calc(82px + var(--safe-b));padding-bottom:10px}main{padding-bottom:250px}.toast{bottom:calc(172px + var(--safe-b))}}
+@media(min-width:701px){main{padding-bottom:160px}body.hasbar .demo-nav{bottom:88px}}
+
+@media(min-width:620px){
+  h1{font-size:33px}
+  .hero{padding:28px 26px 20px}
+  .hero .big{font-size:44px}
+  .segtype{grid-template-columns:repeat(4,1fr)}
+}
+
+/* zichtbare focus voor toetsenbordgebruikers */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--moss);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-in">
+    <a class="brand" href="./" aria-label="Duin maand-update">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#12332B"/><path d="M6.5 23.5 C 13 22.5, 19 21, 25.5 18.5" stroke="#E4D9BE" stroke-width="2.2" stroke-linecap="round"/><path d="M6.5 19 C 13 17.5, 19 14.5, 25.5 11.5" stroke="#C9A35B" stroke-width="2.2" stroke-linecap="round"/><path d="M6.5 14.5 C 13 12.5, 19 8.5, 25.5 5" stroke="#2E9E63" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <b>Duin</b><small>Maand-update</small>
+    </a>
+    <button class="iconbtn" id="menuBtn" aria-label="Menu openen" aria-haspopup="dialog">⋯</button>
+  </div>
+  <div class="tabs" role="tablist" aria-label="Stappen van het maandritueel">
+    <div class="seg">
+      <button role="tab" id="tab-rekeningen" aria-controls="view-rekeningen" aria-selected="false" data-view="rekeningen">Rekeningen<span class="cnt" id="cntAcc"></span></button>
+      <button role="tab" id="tab-checkin" aria-controls="view-checkin" aria-selected="false" data-view="checkin">Deze maand</button>
+      <button role="tab" id="tab-overzicht" aria-controls="view-overzicht" aria-selected="true" data-view="overzicht">Overzicht</button>
+    </div>
+  </div>
+  <div class="demobar" id="demoBar">
+    <div class="db-in">
+      <b>Demo</b>
+      <span>Voorbeeld met het demo-huishouden De Vries. Je eigen gegevens blijven ongemoeid.</span>
+      <button id="demoExit">Terug naar mijn gegevens</button>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ============ A. REKENINGEN / ONBOARDING ============ -->
+<section class="view wrap" id="view-rekeningen" role="tabpanel" aria-labelledby="tab-rekeningen" tabindex="-1">
+  <span class="eyebrow h-eyebrow" id="rekEyebrow">Eenmalig</span>
+  <h1 id="rekTitel">Welke rekeningen tellen mee?</h1>
+  <p class="lead" id="rekLead">Voeg je spaar-, betaal- en beleggingsrekeningen toe met het saldo van nu. Daarna vul je elke maand alleen nog de nieuwe saldo's in.</p>
+
+  <div id="rekLijst"></div>
+
+  <div class="lbl" id="rekFormLbl">Rekening toevoegen</div>
+  <div class="card">
+    <form id="accForm" autocomplete="off">
+      <label class="f" for="accNaam">Naam van de rekening</label>
+      <input type="text" id="accNaam" placeholder="Bijvoorbeeld: spaarrekening bank A" required>
+
+      <label class="f" id="accTypeLbl">Type</label>
+      <div class="segtype" role="group" aria-labelledby="accTypeLbl" id="accType">
+        <button type="button" data-t="spaar" aria-pressed="true">Spaar</button>
+        <button type="button" data-t="betaal" aria-pressed="false">Betaal</button>
+        <button type="button" data-t="belegging" aria-pressed="false">Belegging</button>
+        <button type="button" data-t="overig" aria-pressed="false">Overig</button>
+      </div>
+
+      <label class="f" for="accSaldo" id="accSaldoLbl">Saldo nu</label>
+      <div class="amt"><span class="eur">€</span><input type="text" inputmode="decimal" id="accSaldo" placeholder="0" required></div>
+
+      <div id="belegBlok" hidden>
+        <label class="f" id="belegLbl">Hoe waarderen we deze rekening?</label>
+        <div class="segtype" role="group" aria-labelledby="belegLbl" style="grid-template-columns:1fr 1fr">
+          <button type="button" aria-pressed="true">Handmatig totaal</button>
+          <button type="button" disabled aria-pressed="false" title="Nog niet beschikbaar">Posities (volgt)</button>
+        </div>
+        <p class="note">Je vult nu zelf het totaal van je beleggingsrekening in. Waardering op basis van je posities (fonds of ETF maal aantal) tegen de slotkoers van de maand staat klaar in het ontwerp en volgt zodra de koersbron er is.</p>
+        <button type="button" class="bronchip" data-bron="bronnote-koers" aria-expanded="false" aria-controls="bronnote-koers">Hoe waarderen we straks?</button>
+        <div class="bronnote" id="bronnote-koers" hidden>Er is nog geen koersbron gekoppeld. Je vult daarom zelf het totaal in. Zodra de koersbron er is, waarderen we tegen de slotkoers van de laatste handelsdag van de maand, met peildatum en bron op deze plek. Dagkoersen laten we bewust weg. [check bij publicatie]</div>
+      </div>
+
+      <label class="f" for="accStart">Vanaf welke maand</label>
+      <input type="month" id="accStart">
+
+      <div class="btnrow">
+        <button class="btn w" type="submit" id="accSubmit">Rekening toevoegen</button>
+      </div>
+      <input type="hidden" id="accEditId" value="">
+    </form>
+  </div>
+
+  <div id="rekKlaar"></div>
+</section>
+
+<!-- ============ B. MAAND-CHECK-IN ============ -->
+<section class="view wrap" id="view-checkin" role="tabpanel" aria-labelledby="tab-checkin" tabindex="-1">
+  <span class="eyebrow h-eyebrow" id="ciEyebrow">Deze maand</span>
+  <h1 id="ciTitel">Werk deze maand bij</h1>
+  <p class="lead" id="ciLead"></p>
+  <div id="ciBody"></div>
+</section>
+
+<!-- ============ C. MAANDOVERZICHT ============ -->
+<section class="view wrap on" id="view-overzicht" role="tabpanel" aria-labelledby="tab-overzicht" tabindex="-1">
+  <div id="ovBody"></div>
+</section>
+
+</main>
+
+<div class="stickybar" id="stickyBar">
+  <div class="sb-in">
+    <div class="sbt"><small id="sbLabel">Totaal</small><b class="num" id="sbTotal">€ 0</b></div>
+    <button class="btn" id="sbAction">Maand afronden</button>
+  </div>
+</div>
+
+<div class="veil" id="veil"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitel" aria-hidden="true">
+  <div class="grip"></div>
+  <div class="sh-in" id="sheetIn"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============================================================
+   Duin maandritueel — werkende versie
+   Opslag: localStorage, één versioned sleutel. Demo draait volledig
+   in het geheugen en schrijft nooit naar die sleutel.
+   ============================================================ */
+
+const KEY = 'duinMaandritueel.v1';
+const MND = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+const MND_K = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+const TYPES = {spaar:'Spaar', betaal:'Betaal', belegging:'Belegging', overig:'Overig'};
+const LAAG = {betaal:'zand', overig:'zand', spaar:'goud', belegging:'groen'};
+
+/* ---------- maand-helpers ---------- */
+const nu = new Date();
+function mKey(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
+const HUIDIGE = mKey(nu);
+function mParse(k){ const [y,m] = k.split('-').map(Number); return {y, m}; }
+function mAdd(k, n){ const {y,m} = mParse(k); const t = y*12 + (m-1) + n; return Math.floor(t/12) + '-' + String(t%12+1).padStart(2,'0'); }
+function mDiff(a,b){ const A = mParse(a), B = mParse(b); return (B.y*12+B.m) - (A.y*12+A.m); }
+function mNaam(k){ const {y,m} = mParse(k); return MND[m-1] + ' ' + y; }
+function mKort(k){ const {y,m} = mParse(k); return MND_K[m-1] + " '" + String(y).slice(2); }
+function mMaand(k){ return MND[mParse(k).m-1]; }
+
+/* ---------- getallen ---------- */
+const nf0 = new Intl.NumberFormat('nl-NL',{minimumFractionDigits:0,maximumFractionDigits:0});
+const nf2 = new Intl.NumberFormat('nl-NL',{minimumFractionDigits:2,maximumFractionDigits:2});
+function r2(x){ return Math.round((x + Number.EPSILON) * 100) / 100; }
+function eur(x){ const v = r2(x||0); return '€ ' + (Number.isInteger(v) ? nf0.format(v) : nf2.format(v)); }
+function eurSign(x){ const v = r2(x||0); if(v === 0) return '€ 0'; return (v>0?'+ ':'− ') + eur(Math.abs(v)); }
+function eurRond(x){ return '€ ' + nf0.format(Math.round((x||0)/1000)*1000); }
+function parseBedrag(s){
+  if(typeof s === 'number') return s;
+  if(!s) return NaN;
+  let t = String(s).replace(/[^0-9,.\-]/g,'').trim();
+  if(t === '' || t === '-') return NaN;
+  if(t.indexOf(',') > -1){ t = t.replace(/\./g,'').replace(',','.'); }
+  else if((t.match(/\./g)||[]).length > 1){ t = t.replace(/\./g,''); }
+  else { const p = t.split('.'); if(p.length === 2 && p[1].length === 3) t = p.join(''); }
+  const v = parseFloat(t);
+  return isNaN(v) ? NaN : r2(v);
+}
+function uid(){ return 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ============================================================
+   OPSLAG
+   ============================================================ */
+function leegStore(){ return {v:1, rekeningen:[], maanden:{}, backup:null, gemaakt:new Date().toISOString()}; }
+
+let echteStore = null;
+let demoStore = null;
+let demoAan = false;
+
+function laad(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(!raw) return leegStore();
+    const d = JSON.parse(raw);
+    if(!d || typeof d !== 'object' || !Array.isArray(d.rekeningen)) return leegStore();
+    d.v = 1; d.maanden = d.maanden || {};
+    return d;
+  }catch(e){ return leegStore(); }
+}
+function S(){ return demoAan ? demoStore : echteStore; }
+function bewaar(){
+  if(demoAan) return;             /* demo raakt de echte sleutel nooit aan */
+  try{ localStorage.setItem(KEY, JSON.stringify(echteStore)); }
+  catch(e){ toast('Opslaan lukt niet. Maak een back-up via het menu.'); }
+}
+
+/* ============================================================
+   REKENMODEL
+   ============================================================ */
+function rekeningen(){ return S().rekeningen; }
+function rekById(id){ return rekeningen().find(r => r.id === id) || null; }
+function maandData(k, maak){
+  const s = S();
+  if(!s.maanden[k] && maak) s.maanden[k] = {saldi:{}, rente:{}, inleg:{}, overboekingen:[], afgerond:false};
+  return s.maanden[k] || null;
+}
+function gevuldeMaanden(){ return Object.keys(S().maanden).sort(); }
+function eersteMaand(){
+  const rs = rekeningen();
+  if(!rs.length) return null;
+  return rs.map(r => r.startMaand).sort()[0];
+}
+function actief(r, k){
+  if(k < r.startMaand) return false;
+  if(r.opgehevenPer && k > r.opgehevenPer) return false;
+  return true;
+}
+/* saldo van rekening r in maand k: eigen invoer, anders doorgeschoven vorige stand */
+function saldoOp(r, k){
+  if(!actief(r,k)) return null;
+  if(r.opgehevenPer && k >= r.opgehevenPer) return 0;
+  const ms = gevuldeMaanden().filter(m => m <= k).reverse();
+  for(const m of ms){
+    const v = S().maanden[m].saldi[r.id];
+    if(typeof v === 'number') return v;
+  }
+  return null;
+}
+function ingevuld(r, k){
+  const m = S().maanden[k];
+  return !!(m && typeof m.saldi[r.id] === 'number');
+}
+function totaalOp(k){
+  let t = 0;
+  rekeningen().forEach(r => { const v = saldoOp(r,k); if(typeof v === 'number') t += v; });
+  return r2(t);
+}
+/* de laatste maand vóór k waarin iets is vastgelegd */
+function vorigeMaand(k){
+  const ms = gevuldeMaanden().filter(m => m < k);
+  return ms.length ? ms[ms.length-1] : null;
+}
+/* overboekingen die rekening r in maand k raken */
+function obVan(k, id){ const m = S().maanden[k]; if(!m) return 0; return r2((m.overboekingen||[]).filter(o => o.van === id).reduce((a,o) => a+o.bedrag, 0)); }
+function obNaar(k, id){ const m = S().maanden[k]; if(!m) return 0; return r2((m.overboekingen||[]).filter(o => o.naar === id).reduce((a,o) => a+o.bedrag, 0)); }
+
+/* decompositie van maand k ten opzichte van de vorige vastgelegde maand */
+function decompositie(k){
+  const p = vorigeMaand(k);
+  const res = {vorige:p, delta:0, gespaard:0, rente:0, koers:0, verplaatst:0, obs:[], perRek:[]};
+  const m = S().maanden[k];
+  res.obs = m ? (m.overboekingen||[]).slice() : [];
+  res.verplaatst = r2(res.obs.reduce((a,o) => a+o.bedrag, 0));
+  if(!p){
+    res.delta = null;
+    rekeningen().forEach(r => res.perRek.push({r, nu:saldoOp(r,k), vorig:null, delta:0, netto:0, gespaard:0, rente:0, koers:0}));
+    return res;
+  }
+  rekeningen().forEach(r => {
+    const nuS = saldoOp(r,k), vorS = saldoOp(r,p);
+    const a = typeof nuS === 'number' ? nuS : 0;
+    const b = typeof vorS === 'number' ? vorS : 0;
+    /* nieuwe rekening die in k begint: het startsaldo is inleg, tenzij het via een overboeking kwam */
+    const d = r2(a - b);
+    const netto = r2(d - obNaar(k, r.id) + obVan(k, r.id));
+    let gesp = 0, ren = 0, koe = 0;
+    if(r.type === 'belegging'){
+      const inl = (m && m.inleg[r.id]) || 0;
+      gesp = r2(inl); koe = r2(netto - inl);
+    }else{
+      const ren0 = (m && m.rente[r.id]) || 0;
+      ren = r2(ren0); gesp = r2(netto - ren0);
+    }
+    res.gespaard = r2(res.gespaard + gesp);
+    res.rente = r2(res.rente + ren);
+    res.koers = r2(res.koers + koe);
+    res.perRek.push({r, nu:nuS, vorig:vorS, delta:d, netto, gespaard:gesp, rente:ren, koers:koe});
+  });
+  res.delta = r2(totaalOp(k) - totaalOp(p));
+  return res;
+}
+
+/* reeks voor de grafiek: tot 12 maanden historie */
+function reeks(eind){
+  const e0 = eersteMaand();
+  if(!e0) return [];
+  const start = mDiff(e0, eind) > 11 ? mAdd(eind,-11) : e0;
+  const out = [];
+  for(let k = start; mDiff(k,eind) >= 0; k = mAdd(k,1)){
+    const lagen = {zand:0, goud:0, groen:0};
+    let bekend = false;
+    rekeningen().forEach(r => {
+      const v = saldoOp(r,k);
+      if(typeof v === 'number'){ lagen[LAAG[r.type]||'zand'] += v; }
+      if(ingevuld(r,k)) bekend = true;
+    });
+    out.push({k, zand:r2(lagen.zand), goud:r2(lagen.goud), groen:r2(lagen.groen), totaal:r2(lagen.zand+lagen.goud+lagen.groen), gat: !S().maanden[k]});
+  }
+  return out;
+}
+
+/* gemiddeld eigen spaargedrag per maand, verrekend over verstreken maanden */
+function gemGespaard(eind){
+  const e0 = eersteMaand();
+  if(!e0) return 0;
+  let som = 0;
+  gevuldeMaanden().filter(m => m > e0 && m <= eind).forEach(m => {
+    const d = decompositie(m);
+    if(d.delta !== null) som += d.gespaard;
+  });
+  const maanden = Math.max(1, mDiff(e0, eind));
+  return r2(som / maanden);
+}
+/* [check] rekent nominaal (0%/4% per jaar); harmoniseren met besluit 62 ("boven inflatie") zodra reëel gerekend wordt */
+function vooruitblik(eind){
+  const tot = totaalOp(eind);
+  let beleg = 0;
+  rekeningen().forEach(r => { if(r.type === 'belegging'){ const v = saldoOp(r,eind); if(typeof v === 'number') beleg += v; } });
+  const g = gemGespaard(eind);
+  const inleg = r2(g*12);
+  const laag = r2(tot + inleg);
+  const hoog = r2(tot + inleg + beleg*0.04);
+  return {tot, beleg:r2(beleg), gem:g, inleg, laag, hoog, eindMaand:mAdd(eind,12)};
+}
+
+/* ============================================================
+   DEMO: familie De Vries (expliciet demo)
+   ============================================================ */
+function bouwDemo(){
+  const d = leegStore();
+  d.demo = true;
+  const eind = HUIDIGE;                       /* de demo loopt mee met de echte maand */
+  const R = [
+    {id:'d1', naam:'Spaarrekening bank A (demo)', type:'spaar',     startMaand:mAdd(eind,-11), opgehevenPer:null},
+    {id:'d2', naam:'Spaarrekening bank B (demo)', type:'spaar',     startMaand:mAdd(eind,-11), opgehevenPer:null},
+    {id:'d3', naam:'Betaalrekening (demo)',       type:'betaal',    startMaand:mAdd(eind,-11), opgehevenPer:null},
+    {id:'d4', naam:'Beleggingsrekening (demo)',   type:'belegging', startMaand:mAdd(eind,-11), opgehevenPer:null}
+  ];
+  d.rekeningen = R;
+  /* 12 maanden historie; de laatste maand sluit aan op de canonieke dataset van familie De Vries:
+     spaar + betaal = € 68.000 en beleggingen = € 78.400 in de voorlaatste maand (samen € 146.400). */
+  const rij = [
+    /* d1,    d2,    d3,   d4 */
+    [23000, 35500, 2100, 69300],
+    [23400, 36400, 2250, 70200],
+    [23800, 37200, 2050, 68800],
+    [24100, 38000, 2150, 71500],
+    [24400, 38800, 2200, 72300],
+    [24600, 39500, 2100, 73800],
+    [24700, 40300, 2250, 74100],
+    [25000, 41300, 2400, 75600],
+    [25000, 39900, 2200, 76800],
+    [25000, 40800, 2350, 77500],
+    [25000, 40700, 2300, 78400],
+    [10035, 56960, 2550, 79660]
+  ];
+  const rente = [
+    [0,0,0,0],[35,55,0,0],[35,55,0,0],[35,55,0,0],[35,60,0,0],[35,60,0,0],
+    [35,60,0,0],[35,60,0,0],[35,60,0,0],[35,60,0,0],[35,60,0,0],[35,60,0,0]
+  ];
+  for(let i = 0; i < 12; i++){
+    const k = mAdd(eind, i-11);
+    const m = {saldi:{}, rente:{}, inleg:{}, overboekingen:[], afgerond:true};
+    R.forEach((r,j) => { m.saldi[r.id] = rij[i][j]; });
+    R.forEach((r,j) => { if(rente[i][j]) m.rente[r.id] = rente[i][j]; });
+    d.maanden[k] = m;
+  }
+  /* de overboeking in de laatste maand: € 15.000 van bank A naar bank B, neutraal voor het totaal */
+  d.maanden[eind].overboekingen = [{id:'o1', van:'d1', naar:'d2', bedrag:15000}];
+  d._voorbeeld = {d1:rij[11][0], d2:rij[11][1], d3:rij[11][2], d4:rij[11][3]};
+  return d;
+}
+
+/* ============================================================
+   WEERGAVE: hulpstukken
+   ============================================================ */
+function toast(txt){
+  const t = document.getElementById('toast');
+  t.textContent = txt; t.classList.add('on');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('on'), 2600);
+}
+function kleurVan(type){ return type === 'belegging' ? 'var(--moss)' : (type === 'spaar' ? 'var(--gold)' : 'var(--sandbar)'); }
+
+/* gelaagde groeigrafiek in huisstijl: gradient-fades, gestippelde laaggrenzen, één volle hoofdlijn */
+function tekenGrafiek(data, vb){
+  const W = 520, H = 190, PL = 8, PR = 8, PT = 14, PB = 8;
+  if(!data.length) return '';
+  const vooruit = !!vb;
+  const nHist = data.length;
+  const nTot = nHist + (vooruit ? 12 : 0);
+  const maxY = Math.max(1, vooruit ? Math.max(vb.hoog, ...data.map(d => d.totaal)) : Math.max(...data.map(d => d.totaal)));
+  const minY = 0;
+  const X = i => PL + (nTot === 1 ? (W-PL-PR)/2 : (W-PL-PR) * i / (nTot-1));
+  const Y = v => PT + (H-PT-PB) * (1 - (v-minY)/(maxY-minY));
+
+  function pad(pts){
+    if(pts.length === 1) return 'M' + pts[0][0] + ' ' + pts[0][1];
+    let p = 'M' + pts[0][0] + ' ' + pts[0][1];
+    for(let i = 0; i < pts.length-1; i++){
+      const a = pts[i], b = pts[i+1];
+      const cx = (a[0]+b[0])/2;
+      p += ' C' + cx + ' ' + a[1] + ',' + cx + ' ' + b[1] + ',' + b[0] + ' ' + b[1];
+    }
+    return p;
+  }
+  const niveaus = [
+    {key:'zand',  kleur:'#E4D9BE', id:'gz'},
+    {key:'goud',  kleur:'#C9A35B', id:'gg'},
+    {key:'groen', kleur:'#2E9E63', id:'gn'}
+  ];
+  let cum = data.map(() => 0);
+  let lagenSvg = '';
+  niveaus.forEach(n => {
+    const onder = cum.slice();
+    cum = cum.map((c,i) => r2(c + data[i][n.key]));
+    const boven = cum.map((v,i) => [X(i), Y(v)]);
+    const onderPts = onder.map((v,i) => [X(i), Y(v)]);
+    const d1 = pad(boven);
+    const d2 = pad(onderPts.slice().reverse());
+    lagenSvg += '<path d="' + d1 + ' L' + X(nHist-1) + ' ' + Y(onder[nHist-1]) + ' ' + d2.replace(/^M/,'L') + ' Z" fill="url(#' + n.id + ')"/>';
+    lagenSvg += '<path d="' + d1 + '" fill="none" stroke="' + n.kleur + '" stroke-width="1.1" stroke-dasharray="1 5" opacity=".8"/>';
+  });
+  /* hoofdlijn: het totaal, als enige vol getekend; gaten gestippeld */
+  const tp = data.map((d,i) => [X(i), Y(d.totaal)]);
+  let hoofd = '';
+  for(let i = 0; i < tp.length-1; i++){
+    const seg = pad([tp[i], tp[i+1]]);
+    const gat = data[i+1].gat;
+    hoofd += '<path d="' + seg + '" fill="none" stroke="#1E4D40" stroke-width="2" stroke-linecap="round"' + (gat ? ' stroke-dasharray="3 4" opacity=".55"' : '') + '/>';
+  }
+  if(tp.length === 1) hoofd += '<circle cx="' + tp[0][0] + '" cy="' + tp[0][1] + '" r="3.5" fill="#1E4D40"/>';
+  hoofd += '<circle cx="' + tp[tp.length-1][0] + '" cy="' + tp[tp.length-1][1] + '" r="4" fill="#1E4D40"/>';
+
+  /* vooruitblikband */
+  let bandSvg = '';
+  if(vooruit){
+    const i0 = nHist-1, i1 = nTot-1;
+    const t0 = data[nHist-1].totaal;
+    const laagPts = [], hoogPts = [];
+    for(let s = 0; s <= 12; s++){
+      const xi = X(i0+s);
+      laagPts.push([xi, Y(t0 + (vb.laag-t0)*s/12)]);
+      hoogPts.push([xi, Y(t0 + (vb.hoog-t0)*s/12)]);
+    }
+    bandSvg += '<path d="' + pad(hoogPts) + ' ' + pad(laagPts.slice().reverse()).replace(/^M/,'L') + ' Z" fill="url(#gb)"/>';
+    bandSvg += '<path d="' + pad(hoogPts) + '" fill="none" stroke="#1E4D40" stroke-width="1.2" stroke-dasharray="2 4" opacity=".6"/>';
+    bandSvg += '<path d="' + pad(laagPts) + '" fill="none" stroke="#1E4D40" stroke-width="1.2" stroke-dasharray="2 4" opacity=".6"/>';
+    bandSvg += '<line x1="' + X(i0) + '" x2="' + X(i0) + '" y1="' + PT + '" y2="' + (H-PB) + '" stroke="#A6AEA8" stroke-width="1" stroke-dasharray="2 4"/>';
+    bandSvg += '<text x="' + (X(i0)+8) + '" y="' + (H-PB-4) + '" font-size="8.5" letter-spacing="1.6" fill="#A6AEA8" font-family="Helvetica Neue,Arial,sans-serif">ALS JE ZO DOORGAAT</text>';
+    bandSvg += '<text x="' + X(i1) + '" y="' + (Y(vb.hoog)-7) + '" text-anchor="end" font-size="10" fill="#79847E" font-family="Helvetica Neue,Arial,sans-serif">' + esc(eurRond(vb.hoog)) + '</text>';
+    bandSvg += '<text x="' + X(i1) + '" y="' + (Y(vb.laag)+14) + '" text-anchor="end" font-size="10" fill="#79847E" font-family="Helvetica Neue,Arial,sans-serif">' + esc(eurRond(vb.laag)) + '</text>';
+  }
+  /* gestippelde gridlijnen */
+  let grid = '';
+  for(let g = 1; g <= 3; g++){
+    const y = PT + (H-PT-PB)*g/4;
+    grid += '<line x1="0" x2="' + W + '" y1="' + y + '" y2="' + y + '" stroke="#E2DCCC" stroke-width="1" stroke-dasharray="2 6"/>';
+  }
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" role="img" aria-label="Gelaagde groeigrafiek van je vermogen per maand">' +
+    '<defs>' +
+      '<linearGradient id="gz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E4D9BE" stop-opacity=".85"/><stop offset="1" stop-color="#E4D9BE" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9A35B" stop-opacity=".55"/><stop offset="1" stop-color="#C9A35B" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="gn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E9E63" stop-opacity=".45"/><stop offset="1" stop-color="#2E9E63" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="gb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1E4D40" stop-opacity=".26"/><stop offset="1" stop-color="#1E4D40" stop-opacity=".04"/></linearGradient>' +
+    '</defs>' + grid + lagenSvg + bandSvg + hoofd + '</svg>';
+}
+
+/* ============================================================
+   A. REKENINGEN
+   ============================================================ */
+let formType = 'spaar';
+function renderRekeningen(){
+  const rs = rekeningen();
+  const lijst = document.getElementById('rekLijst');
+  const klaar = document.getElementById('rekKlaar');
+  document.getElementById('cntAcc').textContent = rs.length ? rs.length : '';
+
+  if(!rs.length){
+    document.getElementById('rekEyebrow').textContent = 'Eenmalig';
+    document.getElementById('rekTitel').textContent = 'Welke rekeningen tellen mee?';
+    document.getElementById('rekLead').textContent = "Voeg je spaar-, betaal- en beleggingsrekeningen toe met het saldo van nu. Daarna vul je elke maand alleen nog de nieuwe saldo's in.";
+    lijst.innerHTML = '<div class="potential">' +
+      '<svg width="170" height="56" viewBox="0 0 170 56" aria-hidden="true">' +
+      '<path d="M4 46 C50 44, 110 36, 166 26" fill="none" stroke="#E4D9BE" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>' +
+      '<path d="M4 40 C50 37, 110 24, 166 14" fill="none" stroke="#C9A35B" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>' +
+      '<path d="M4 34 C50 30, 110 14, 166 5" fill="none" stroke="#2E9E63" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 6"/>' +
+      '</svg>' +
+      '<p>Je duin is nog een stippellijn. Zodra je je eerste rekening toevoegt, krijgt hij zijn eerste laag en zie je elke maand een regel bijkomen.</p>' +
+      '<div class="btnrow" style="justify-content:center"><button class="btn sec sm" type="button" id="demoStart">Bekijk eerst het voorbeeld (demo)</button></div></div>';
+    klaar.innerHTML = '';
+    const ds = document.getElementById('demoStart');
+    if(ds) ds.addEventListener('click', () => zetDemo(true));
+    return;
+  }
+
+  document.getElementById('rekEyebrow').textContent = 'Jouw rekeningen';
+  document.getElementById('rekTitel').textContent = rs.length === 1 ? 'Eén rekening' : rs.length + ' rekeningen';
+  document.getElementById('rekLead').textContent = 'Je kunt elke maand een rekening toevoegen, aanpassen of opheffen. De historie blijft staan.';
+
+  let h = '';
+  rs.forEach((r,i) => {
+    const v = saldoOp(r, HUIDIGE);
+    const op = !!r.opgehevenPer;
+    h += '<div class="card">' +
+      '<div class="rowline"><span class="chip"><i style="background:' + kleurVan(r.type) + '"></i>' + TYPES[r.type] + '</span>' +
+      (op ? '<span class="chip warn">Opgeheven</span>' : '') +
+      '<span class="grow"></span>' +
+      '<b class="num">' + eur(typeof v === 'number' ? v : 0) + '</b></div>' +
+      '<h3 style="margin-top:8px">' + esc(r.naam) + '</h3>' +
+      '<p class="note">Loopt mee vanaf ' + mNaam(r.startMaand) + (op ? '. Opgeheven in ' + mNaam(r.opgehevenPer) : '') + '.</p>' +
+      '<div class="insight">' + inzichtVoor(r, i) + '</div>' +
+      '<div class="btnrow"><button class="btn sec sm" type="button" data-edit="' + r.id + '">Aanpassen</button>' +
+      (op ? '' : '<button class="btn sec sm" type="button" data-opheff="' + r.id + '">Opheffen</button>') +
+      '<button class="btn sec sm" style="color:var(--mut)" type="button" data-weg="' + r.id + '">Verwijderen</button></div>' +
+      '</div>';
+  });
+  lijst.innerHTML = h;
+  lijst.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => bewerk(b.dataset.edit)));
+  lijst.querySelectorAll('[data-opheff]').forEach(b => b.addEventListener('click', () => opheffenSheet(b.dataset.opheff)));
+  lijst.querySelectorAll('[data-weg]').forEach(b => b.addEventListener('click', () => verwijderSheet(b.dataset.weg)));
+
+  const tot = totaalOp(HUIDIGE);
+  klaar.innerHTML = '<div class="lbl">Je startbeeld</div>' +
+    '<div class="card dark"><small style="color:rgba(255,255,255,.55);font-size:11.5px">' + (demoAan ? 'TOTAAL DEMO-HUISHOUDEN DE VRIES' : 'TOTAAL OP JE REKENINGEN') + '</small>' +
+    '<div style="font-size:32px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin:2px 0 10px">' + eur(tot) + '</div>' +
+    '<div style="margin:0 -6px">' + miniDuin(rs) + '</div>' +
+    '<p style="color:rgba(255,255,255,.8);font-size:14px;border-top:1px solid rgba(255,255,255,.14);padding-top:12px;margin-top:10px">' +
+    'Dit is de grond waarop je duin verder bouwt. Vanaf nu komt er elke maand één laag bij.</p></div>' +
+    '<div class="btnrow"><button class="btn w" type="button" id="naarCheckin">Verder naar ' + mMaand(HUIDIGE) + '</button></div>';
+  document.getElementById('naarCheckin').addEventListener('click', () => ga('checkin'));
+}
+
+function inzichtVoor(r, i){
+  const v = saldoOp(r, HUIDIGE) || 0;
+  const rs = rekeningen();
+  if(r.type === 'spaar'){
+    const sprs = rs.filter(x => x.type === 'spaar');
+    const sp = sprs.reduce((a,x) => a + (saldoOp(x,HUIDIGE)||0), 0);
+    if(sprs.length > 1 && sprs[sprs.length-1].id === r.id) return 'Met deze erbij staat er <b>' + eur(sp) + '</b> op je spaarrekeningen samen. In het overzicht zie je ze als één laag terug.';
+    if(sprs.length > 1) return 'Deze rekening telt mee in je spaarlaag. Rente vul je per maand apart in, dan telt die niet als gespaard.';
+    return 'Dit saldo vormt je eerste laag: <b>' + eur(v) + '</b> spaargeld. Rente kun je per maand apart invullen, dan telt die niet als gespaard.';
+  }
+  if(r.type === 'betaal') return 'Van je betaalrekening gebruiken we alleen het saldo op de dag dat je bijwerkt. Schommelingen tussendoor laten we met rust.';
+  if(r.type === 'belegging') return 'Het verschil op deze rekening splitsen we elke maand in je eigen inleg en koersresultaat. Zo telt een storting niet mee als rendement.';
+  const tot = totaalOp(HUIDIGE);
+  return 'Deze rekening telt mee in je totaal van <b>' + eur(tot) + '</b>.';
+}
+
+let duinTeller = 0;
+function miniDuin(rs){
+  const n = ++duinTeller;
+  const lag = {zand:0, goud:0, groen:0};
+  rs.forEach(r => { lag[LAAG[r.type]||'zand'] += (saldoOp(r,HUIDIGE)||0); });
+  const t = lag.zand + lag.goud + lag.groen;
+  const W = 480, H = 66, TOP = 8;
+  const defs = '<defs>' +
+    '<linearGradient id="mz' + n + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E4D9BE" stop-opacity=".75"/><stop offset="1" stop-color="#E4D9BE" stop-opacity=".04"/></linearGradient>' +
+    '<linearGradient id="mg' + n + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9A35B" stop-opacity=".62"/><stop offset="1" stop-color="#C9A35B" stop-opacity=".04"/></linearGradient>' +
+    '<linearGradient id="mn' + n + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3DBF7B" stop-opacity=".7"/><stop offset="1" stop-color="#2E9E63" stop-opacity=".04"/></linearGradient></defs>';
+  /* laaggrens als duinlijn: links laag, rechts hoog, zodat het beeld groeit in plaats van stapelt */
+  function grens(f){
+    const l = H - 2 - f * (H-TOP) * 0.42;
+    const r = H - 5 - f * (H-TOP);
+    return {l, r, d: 'C' + (W*0.34) + ' ' + (l-1) + ',' + (W*0.62) + ' ' + (r+2) + ',' + W + ' ' + r};
+  }
+  if(t <= 0) return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" aria-hidden="true"></svg>';
+  const specs = [['zand','mz' + n,'#E4D9BE',1.2],['goud','mg' + n,'#C9A35B',1.3],['groen','mn' + n,'#7ED9A6',2]];
+  let f0 = 0, out = '';
+  specs.forEach((sp,i) => {
+    const deel = lag[sp[0]] / t;
+    if(deel <= 0.001){ return; }
+    const a = grens(f0), b = grens(f0 + deel);
+    out += '<path d="M0 ' + a.l + ' ' + a.d + ' L' + W + ' ' + b.r + ' ' +
+           'C' + (W*0.62) + ' ' + (b.r+2) + ',' + (W*0.34) + ' ' + (b.l-1) + ',0 ' + b.l + ' Z" fill="url(#' + sp[1] + ')"/>';
+    out += '<path d="M0 ' + b.l + ' ' + b.d + '" fill="none" stroke="' + sp[2] + '" stroke-width="' + sp[3] + '" ' +
+           (i === 2 ? 'stroke-linecap="round"' : 'stroke-dasharray="1 5" opacity=".75"') + '/>';
+    f0 += deel;
+  });
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" aria-hidden="true">' + defs + out +
+    '<line x1="0" x2="' + W + '" y1="' + (H-1) + '" y2="' + (H-1) + '" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/></svg>';
+}
+
+/* --- formulier --- */
+function zetFormType(t){
+  formType = t;
+  document.querySelectorAll('#accType button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.t === t)));
+  document.getElementById('belegBlok').hidden = (t !== 'belegging');
+  document.getElementById('accSaldoLbl').textContent = t === 'belegging' ? 'Totale waarde nu' : 'Saldo nu';
+}
+document.querySelectorAll('#accType button').forEach(b => b.addEventListener('click', () => zetFormType(b.dataset.t)));
+
+function resetForm(){
+  document.getElementById('accNaam').value = '';
+  document.getElementById('accSaldo').value = '';
+  document.getElementById('accStart').value = HUIDIGE;
+  document.getElementById('accEditId').value = '';
+  document.getElementById('accSubmit').textContent = 'Rekening toevoegen';
+  document.getElementById('rekFormLbl').firstChild.nodeValue = 'Rekening toevoegen';
+  zetFormType('spaar');
+}
+function bewerk(id){
+  const r = rekById(id); if(!r) return;
+  document.getElementById('accNaam').value = r.naam;
+  document.getElementById('accSaldo').value = String(saldoOp(r,HUIDIGE) || 0).replace('.',',');
+  document.getElementById('accStart').value = r.startMaand;
+  document.getElementById('accEditId').value = r.id;
+  document.getElementById('accSubmit').textContent = 'Wijziging bewaren';
+  document.getElementById('rekFormLbl').firstChild.nodeValue = 'Rekening aanpassen';
+  zetFormType(r.type);
+  ga('rekeningen');
+  document.getElementById('accNaam').focus();
+}
+document.getElementById('accForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const naam = document.getElementById('accNaam').value.trim();
+  const saldo = parseBedrag(document.getElementById('accSaldo').value);
+  const start = document.getElementById('accStart').value || HUIDIGE;
+  if(!naam){ toast('Geef de rekening een naam.'); return; }
+  if(isNaN(saldo)){ toast('Vul een bedrag in, bijvoorbeeld 2500.'); return; }
+  const editId = document.getElementById('accEditId').value;
+  const s = S();
+  if(editId){
+    const r = rekById(editId);
+    r.naam = naam; r.type = formType; r.startMaand = start;
+    const m = maandData(start, true); m.saldi[r.id] = saldo;
+    toast('Aangepast.');
+  }else{
+    const r = {id:uid(), naam, type:formType, startMaand:start, opgehevenPer:null};
+    s.rekeningen.push(r);
+    const m = maandData(start, true); m.saldi[r.id] = saldo;
+    toast('Toegevoegd: ' + naam);
+  }
+  bewaar(); resetForm(); renderAlles();
+  document.getElementById('rekLijst').scrollIntoView({block:'start', behavior:'smooth'});
+});
+
+/* ============================================================
+   B. MAAND-CHECK-IN
+   ============================================================ */
+let concept = {};   /* ingetypte saldo's die nog niet bewaard zijn */
+
+function renderCheckin(){
+  const body = document.getElementById('ciBody');
+  const rs = rekeningen().filter(r => actief(r, HUIDIGE));
+  const vorig = vorigeMaand(HUIDIGE);
+  document.getElementById('ciEyebrow').textContent = mNaam(HUIDIGE);
+  document.getElementById('ciTitel').textContent = 'Werk ' + mMaand(HUIDIGE) + ' bij';
+
+  if(!rekeningen().length){
+    document.getElementById('ciLead').textContent = 'Je hebt nog geen rekeningen. Voeg er eerst één toe, dan staat deze maand binnen een minuut klaar.';
+    body.innerHTML = '<div class="btnrow"><button class="btn w" type="button" id="ciNaarRek">Eerste rekening toevoegen</button></div>';
+    document.getElementById('ciNaarRek').addEventListener('click', () => ga('rekeningen'));
+    return;
+  }
+
+  if(vorig){
+    const gemist = mDiff(vorig, HUIDIGE) - 1;
+    document.getElementById('ciLead').textContent = 'Vorige stand: ' + mNaam(vorig) + ', ' + eur(totaalOp(vorig)) + '.' +
+      (gemist > 0 ? ' Je sloeg ' + gemist + ' ' + (gemist === 1 ? 'maand' : 'maanden') + ' over. Dat mag, we rekenen het verschil over de hele periode uit.' : '');
+  }else{
+    document.getElementById('ciLead').textContent = 'Dit is je eerste maand. Je vult nu de stand in, vanaf volgende maand zie je hier wat er veranderde.';
+  }
+
+  let h = '';
+  if(demoAan){
+    const leeg = !Object.keys((S().maanden[HUIDIGE]||{saldi:{}}).saldi).length;
+    h += '<div class="card" style="background:var(--sand2);border:none"><p class="note" style="margin:0 0 8px;color:var(--ink2)">' +
+      (leeg ? 'De voorbeeldsaldo\'s staan uit. Vul ze zelf in of zet ze terug.' : 'De voorbeeldmaand is al ingevuld. Maak hem leeg om de invoer zelf te proberen.') + '</p>' +
+      '<div class="btnrow" style="margin:0"><button class="btn sec sm" type="button" id="demoToggleSaldi">' +
+      (leeg ? 'Voorbeeldsaldo\'s terugzetten' : 'Leegmaken en zelf invullen') + '</button></div></div>';
+  }
+  rs.forEach(r => {
+    const vorS = vorig ? saldoOp(r, vorig) : null;
+    const eigen = S().maanden[HUIDIGE] && S().maanden[HUIDIGE].saldi[r.id];
+    const waarde = (r.id in concept) ? concept[r.id] : (typeof eigen === 'number' ? String(eigen).replace('.',',') : '');
+    const klaar = waarde !== '' && !isNaN(parseBedrag(waarde));
+    const uit = obVan(HUIDIGE, r.id), inn = obNaar(HUIDIGE, r.id);
+    const m = S().maanden[HUIDIGE];
+    const extra = r.type === 'belegging' ? ((m && m.inleg[r.id]) || '') : ((m && m.rente[r.id]) || '');
+
+    let chips = '';
+    (m ? (m.overboekingen||[]) : []).forEach(o => {
+      if(o.van === r.id) chips += '<span class="chip gold">− ' + eur(o.bedrag) + ' naar ' + esc(kortNaam(o.naar)) + '</span>';
+      if(o.naar === r.id) chips += '<span class="chip gold">+ ' + eur(o.bedrag) + ' van ' + esc(kortNaam(o.van)) + '</span>';
+    });
+    if(r.opgehevenPer === HUIDIGE) chips += '<span class="chip warn">Opgeheven deze maand</span>';
+
+    h += '<div class="acc' + (klaar ? ' done' : '') + '" data-acc="' + r.id + '">' +
+      '<div class="rowline"><span class="chip"><i style="background:' + kleurVan(r.type) + '"></i>' + TYPES[r.type] + '</span><span class="grow"></span>' +
+      (klaar ? '<span class="chip moss">Bijgewerkt</span>' : '<span class="chip">Vul later aan</span>') + '</div>' +
+      '<h3 style="margin-top:8px">' + esc(r.naam) + '</h3>' +
+      '<p class="prev">' + (vorS === null ? 'Nieuw deze maand' : 'Vorige stand ' + eur(vorS)) + '</p>' +
+      (chips ? '<div class="mut-chips">' + chips + '</div>' : '') +
+      '<label class="f" for="in-' + r.id + '">' + (r.type === 'belegging' ? 'Totale waarde nu' : 'Saldo nu') + '</label>' +
+      '<div class="amt"><span class="eur">€</span><input type="text" inputmode="decimal" id="in-' + r.id + '" data-saldo="' + r.id + '" value="' + esc(waarde) + '" placeholder="' + (vorS === null ? '0' : String(vorS).replace('.',',')) + '" aria-describedby="hint-' + r.id + '"></div>' +
+      (r.type === 'belegging'
+        ? '<p class="note" id="hint-' + r.id + '">Je vult de waarde zelf in. Automatisch waarderen tegen de slotkoers van de maand volgt. <button type="button" class="bronchip" data-bron="bn-' + r.id + '" aria-expanded="false" aria-controls="bn-' + r.id + '">Hoe waarderen we straks?</button></p>' +
+          '<div class="bronnote" id="bn-' + r.id + '" hidden>Er is nog geen koersbron gekoppeld. Je vult daarom zelf het totaal in. Zodra de koersbron er is, waarderen we je posities tegen de slotkoers van de laatste handelsdag van de maand, met peildatum en bron op deze plek. Dagkoersen tonen we niet. [check bij publicatie]</div>'
+        : '<p class="note" id="hint-' + r.id + '">Neem het saldo over van de dag dat je bijwerkt.</p>') +
+      '<details class="menu"><summary>Meer bij deze rekening</summary><div class="menubox">' +
+        '<h4>' + (r.type === 'belegging' ? 'Waarvan eigen inleg deze maand' : 'Waarvan rente bijgeschreven') + '</h4>' +
+        '<p class="hint">' + (r.type === 'belegging' ? 'Wat je zelf hebt ingelegd telt als gespaard, niet als koersresultaat.' : 'Rente houden we apart van wat je zelf opzij zette.') + '</p>' +
+        '<div class="amt" style="margin-top:6px"><span class="eur">€</span><input type="text" inputmode="decimal" data-extra="' + r.id + '" value="' + esc(extra === '' ? '' : String(extra).replace('.',',')) + '" placeholder="0" aria-label="' + (r.type === 'belegging' ? 'Eigen inleg' : 'Rente') + ' bij ' + esc(r.naam) + '"></div>' +
+        '<h4>Geld verplaatst</h4><p class="hint">Verplaatsen tussen je eigen rekeningen telt nooit als groei. Je regelt beide rekeningen in één handeling.</p>' +
+        '<div class="btnrow"><button class="btn sec sm" type="button" data-verplaats="' + r.id + '">Verplaatst naar …</button>' +
+        (r.opgehevenPer ? '<button class="btn sec sm" type="button" data-heropen="' + r.id + '">Opheffing terugdraaien</button>'
+                        : '<button class="btn sec sm" type="button" data-opheff2="' + r.id + '">Rekening opgeheven</button>') + '</div>' +
+      '</div></details></div>';
+  });
+
+  h += '<div class="btnrow"><button class="btn gh w" type="button" id="ciAdd">+ Rekening toevoegen</button></div>';
+  const open = rs.filter(r => !ingevuld(r,HUIDIGE) && !(r.id in concept && concept[r.id] !== '')).length;
+  h += '<p class="note" style="margin-top:14px">Afronden kan altijd. Rekeningen die je nu leeg laat schuiven door met hun vorige stand en houden het label “vul later aan”.</p>';
+  body.innerHTML = h;
+
+  body.querySelectorAll('[data-saldo]').forEach(inp => {
+    inp.addEventListener('input', () => { concept[inp.dataset.saldo] = inp.value; markeerKaart(inp.dataset.saldo); werkBalkBij(); });
+    inp.addEventListener('blur', () => { const v = parseBedrag(inp.value); if(!isNaN(v)) inp.value = String(v).replace('.',','); });
+  });
+  body.querySelectorAll('[data-extra]').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const m = maandData(HUIDIGE, true);
+      const v = parseBedrag(inp.value);
+      const r = rekById(inp.dataset.extra);
+      const pot = r.type === 'belegging' ? m.inleg : m.rente;
+      if(isNaN(v) || v === 0) delete pot[r.id]; else pot[r.id] = v;
+      bewaar();
+    });
+  });
+  body.querySelectorAll('[data-verplaats]').forEach(b => b.addEventListener('click', () => verplaatsSheet(b.dataset.verplaats)));
+  body.querySelectorAll('[data-opheff2]').forEach(b => b.addEventListener('click', () => opheffenSheet(b.dataset.opheff2)));
+  body.querySelectorAll('[data-heropen]').forEach(b => b.addEventListener('click', () => {
+    const r = rekById(b.dataset.heropen); r.opgehevenPer = null; bewaar(); renderAlles(); toast('Opheffing teruggedraaid.');
+  }));
+  document.getElementById('ciAdd').addEventListener('click', () => { resetForm(); ga('rekeningen'); document.getElementById('accNaam').focus(); });
+  const dt = document.getElementById('demoToggleSaldi');
+  if(dt) dt.addEventListener('click', () => {
+    const m = maandData(HUIDIGE, true);
+    const leeg = !Object.keys(m.saldi).length;
+    if(leeg){ Object.keys(demoStore._voorbeeld).forEach(id => { m.saldi[id] = demoStore._voorbeeld[id]; }); m.afgerond = true; }
+    else { m.saldi = {}; m.afgerond = false; }
+    concept = {};
+    renderAlles();
+    toast(leeg ? 'Voorbeeldsaldo\'s staan er weer in.' : 'Leeg. Vul de bedragen zelf in.');
+  });
+  werkBalkBij();
+}
+/* live statuslabel op een rekeningkaart tijdens het typen */
+function markeerKaart(id){
+  const kaart = document.querySelector('[data-acc="' + id + '"]');
+  if(!kaart) return;
+  const v = concept[id];
+  const klaar = v !== undefined && v !== '' && !isNaN(parseBedrag(v));
+  kaart.classList.toggle('done', klaar);
+  const chip = kaart.querySelector('.rowline .chip:last-of-type');
+  if(chip){ chip.textContent = klaar ? 'Bijgewerkt' : 'Vul later aan'; chip.classList.toggle('moss', klaar); }
+}
+function kortNaam(id){ const r = rekById(id); return r ? r.naam.replace(/\s*\(demo\)\s*/,'') : 'onbekend'; }
+
+function conceptTotaal(){
+  let t = 0;
+  rekeningen().filter(r => actief(r,HUIDIGE)).forEach(r => {
+    let v;
+    if(r.id in concept && concept[r.id] !== '' && !isNaN(parseBedrag(concept[r.id]))) v = parseBedrag(concept[r.id]);
+    else v = saldoOp(r, HUIDIGE);
+    if(r.opgehevenPer === HUIDIGE) v = 0;
+    if(typeof v === 'number') t += v;
+  });
+  return r2(t);
+}
+function werkBalkBij(){
+  const rs = rekeningen().filter(r => actief(r,HUIDIGE));
+  const klaar = rs.filter(r => (r.id in concept ? (concept[r.id] !== '' && !isNaN(parseBedrag(concept[r.id]))) : ingevuld(r,HUIDIGE))).length;
+  document.getElementById('sbLabel').textContent = klaar + ' van ' + rs.length + ' bijgewerkt';
+  document.getElementById('sbTotal').textContent = eur(conceptTotaal());
+}
+
+function rondAf(){
+  const m = maandData(HUIDIGE, true);
+  rekeningen().filter(r => actief(r,HUIDIGE)).forEach(r => {
+    if(r.id in concept){
+      const v = parseBedrag(concept[r.id]);
+      if(!isNaN(v)) m.saldi[r.id] = v;
+    }
+    if(r.opgehevenPer === HUIDIGE) m.saldi[r.id] = 0;
+  });
+  m.afgerond = true;
+  concept = {};
+  bewaar(); renderAlles(); ga('overzicht');
+  toast(mMaand(HUIDIGE) + ' staat erin.');
+}
+
+/* ============================================================
+   C. MAANDOVERZICHT
+   ============================================================ */
+function renderOverzicht(){
+  const body = document.getElementById('ovBody');
+  const rs = rekeningen();
+  if(!rs.length){
+    body.innerHTML = '<span class="eyebrow h-eyebrow">Overzicht</span><h1>Hier komt je duin te staan</h1>' +
+      '<p class="lead">Nog geen cijfers, wel al een beeld van wat je straks ziet: je totaal, wat eraan bijdroeg en een vooruitblik in banden.</p>' +
+      '<div class="potential"><svg width="200" height="70" viewBox="0 0 200 70" aria-hidden="true">' +
+      '<path d="M6 58 C60 55, 130 44, 194 32" fill="none" stroke="#E4D9BE" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 6"/>' +
+      '<path d="M6 50 C60 46, 130 30, 194 18" fill="none" stroke="#C9A35B" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 6"/>' +
+      '<path d="M6 42 C60 37, 130 18, 194 6" fill="none" stroke="#2E9E63" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 6"/></svg>' +
+      '<p>Eén rekening is genoeg om te beginnen. De rest voeg je toe wanneer het je uitkomt.</p>' +
+      '<div class="btnrow" style="justify-content:center"><button class="btn sm" type="button" id="ovNaarRek">Rekening toevoegen</button>' +
+      '<button class="btn sec sm" type="button" id="ovDemo">Bekijk het voorbeeld (demo)</button></div></div>' + footHtml();
+    document.getElementById('ovNaarRek').addEventListener('click', () => ga('rekeningen'));
+    document.getElementById('ovDemo').addEventListener('click', () => zetDemo(true));
+    return;
+  }
+
+  const laatste = gevuldeMaanden().length ? gevuldeMaanden()[gevuldeMaanden().length-1] : HUIDIGE;
+  const k = laatste > HUIDIGE ? laatste : HUIDIGE;
+  const d = decompositie(k);
+  const tot = totaalOp(k);
+  const vb = vooruitblik(k);
+  const data = reeks(k);
+
+  /* ---- hero ---- */
+  let deltaHtml;
+  if(d.delta === null){
+    deltaHtml = '<span class="delta flat">Startbeeld, nog geen vorige maand</span>';
+  }else{
+    const cls = d.delta > 0 ? '' : (d.delta < 0 ? ' dn' : ' flat');
+    const pijl = d.delta > 0 ? '↑ ' : (d.delta < 0 ? '↓ ' : '');
+    deltaHtml = '<span class="delta' + cls + '">' + pijl + eur(Math.abs(d.delta)) + ' sinds ' + mMaand(d.vorige) + '</span>';
+  }
+  let sum;
+  if(d.delta === null){
+    sum = 'Dit is je eerste stand. Vanaf volgende maand staat hier wat er veranderde en waardoor.';
+  }else{
+    const delen = [];
+    if(d.gespaard !== 0) delen.push('wat je opzij zette');
+    if(d.koers !== 0) delen.push('koersbeweging');
+    if(d.rente !== 0) delen.push('rente');
+    sum = 'Het verschil van <b>' + eurSign(d.delta) + '</b> komt uit ' + (delen.length ? delen.join(', ').replace(/, ([^,]*)$/, ' en $1') : 'je bijgewerkte saldo\'s') + '.';
+    if(d.verplaatst > 0) sum += ' Wat je tussen je eigen rekeningen verplaatste telt daar niet in mee.';
+  }
+
+  let h = '<span class="eyebrow h-eyebrow">' + mNaam(k) + '</span>' +
+    '<h1>Je staat op ' + eur(tot) + '</h1>' +
+    '<p class="lead">Dit is het totaal van de rekeningen die je hier bijhoudt. Je woning, je pensioen en andere bezittingen staan in Mijn Duin.</p>' +
+    '<div class="hero"><small>' + (demoAan ? 'TOTAAL DEMO-HUISHOUDEN DE VRIES' : 'TOTAAL OP JE REKENINGEN') + '</small><div class="big">' + eur(tot) + '</div>' + deltaHtml +
+    '<div style="margin:14px -4px 0">' + miniDuin(rs) + '</div>' +
+    '<p class="sum">' + sum + '</p></div>';
+
+  /* ---- decompositie ---- */
+  if(d.delta !== null){
+    h += '<div class="lbl">Waar het verschil vandaan komt</div><div class="decomp">';
+    h += drow('var(--moss)', 'Gespaard', 'Wat je zelf opzij zette of opnam.', d.gespaard);
+    h += drow('var(--gold)', 'Rente', d.rente === 0 ? 'Niets ingevuld deze maand.' : 'Bijgeschreven op je spaarrekeningen.', d.rente);
+    h += drow('var(--sandbar)', 'Koersresultaat', d.koers === 0 ? 'Geen koersbeweging ingevuld.' : 'Beweging van je beleggingen, zonder je eigen inleg.', d.koers);
+    const obTxt = d.obs.length
+      ? d.obs.map(o => eur(o.bedrag) + ' van ' + esc(kortNaam(o.van)) + ' naar ' + esc(kortNaam(o.naar))).join('; ') + '. Dit telt niet als groei.'
+      : 'Niets verplaatst deze maand.';
+    h += '<div class="drow"><span class="dot" style="background:#A6AEA8"></span><span class="nm">Verplaatst tussen je rekeningen<small>' + obTxt + '</small></span><span class="val flat">€ 0</span></div>';
+    const som = r2(d.gespaard + d.rente + d.koers);
+    const klopt = Math.abs(som - d.delta) < 0.005;
+    h += '<div class="drow sumrow"><span class="dot" style="background:var(--pine)"></span><span class="nm">Verschil met ' + mMaand(d.vorige) + '</span><span class="val ' + (d.delta>0?'up':(d.delta<0?'dn':'flat')) + '" data-som="' + som.toFixed(2) + '" data-delta="' + d.delta.toFixed(2) + '">' + eurSign(d.delta) + '</span></div>';
+    h += '</div>';
+    if(!klopt) h += '<p class="note" style="color:var(--warn)">De onderdelen tellen niet op tot het verschil. Controleer je invoer van deze maand.</p>';
+  }
+
+  /* ---- grafiek + vooruitblik ---- */
+  h += '<div class="lbl">Je duin in de tijd</div><div class="chartcard">' + tekenGrafiek(data, vb) +
+    '<div class="xax"><span>' + mKort(data[0].k) + '</span><span>' + mKort(k) + '</span><span>' + mKort(vb.eindMaand) + '</span></div>' +
+    '<div class="legend"><span><i style="background:#2E9E63"></i>Beleggingen</span><span><i style="background:#C9A35B"></i>Spaargeld</span><span><i style="background:#E4D9BE"></i>Betaal en overig</span></div></div>';
+  const gaten = data.filter(x => x.gat).length;
+  if(gaten) h += '<p class="note">' + gaten + ' ' + (gaten === 1 ? 'maand is' : 'maanden zijn') + ' niet bijgewerkt. Die stukken staan gestippeld en schuiven de vorige stand door.</p>';
+
+  h += '<div class="lbl">Als je zo doorgaat</div>' +
+    '<div class="band"><span class="eyebrow" style="color:var(--mut)">Over 12 maanden, in ' + mNaam(vb.eindMaand) + ', op basis van je stand van ' + mNaam(k) + '</span>' +
+    '<div class="r">' + eurRond(vb.laag) + ' tot ' + eurRond(vb.hoog) + '</div>' +
+    '<p class="note">Een band, geen punt. De onderkant rekent met 0% op je beleggingen, de bovenkant met 4% per jaar. De onderkant is geen bodem: je beleggingen kunnen ook dalen.</p>' +
+    '<div class="aanname"><b>Rekenaanname, geen verwachting.</b> We rekenen met je eigen spaargedrag van de afgelopen maanden, gemiddeld ongeveer ' + eur(Math.round(vb.gem)) + ' per maand, en met twee vaste rekenvarianten voor je beleggingen: 0% en 4% per jaar. Dit is geen voorspelling en geen rendementsbelofte. Je werkelijke resultaat kan hoger of lager uitvallen.</div></div>';
+
+  /* ---- maandactie ---- */
+  const act = maandActie(k, d);
+  h += '<div class="lbl">Je maandactie</div>' +
+    '<div class="card" style="border:1.5px solid var(--pine)"><h3>' + act.titel + '</h3><p class="note">' + act.tekst + '</p>' +
+    '<div class="btnrow"><button class="btn sm" type="button" id="actBtn">' + act.knop + '</button></div></div>';
+
+  /* ---- rekeningen op een rij ---- */
+  h += '<div class="lbl">Per rekening</div><div class="decomp">';
+  d.perRek.forEach(p => {
+    if(p.nu === null && p.vorig === null) return;
+    const v = p.netto;
+    const verpl = obVan(k, p.r.id) + obNaar(k, p.r.id);
+    h += '<div class="drow"><span class="dot" style="background:' + kleurVan(p.r.type) + '"></span>' +
+      '<span class="nm">' + esc(p.r.naam) + '<small>' + (ingevuld(p.r,k) ? (verpl ? 'bijgewerkt, zonder wat je verplaatste' : 'bijgewerkt') : 'vul later aan, vorige stand doorgeschoven') + '</small></span>' +
+      '<span style="text-align:right"><span class="val num">' + eur(p.nu||0) + '</span>' +
+      (d.delta === null ? '' : '<small style="display:block;color:var(--faint);font-size:12px" class="num">' + (v === 0 ? 'ongewijzigd' : eurSign(v)) + '</small>') + '</span></div>';
+  });
+  h += '</div>';
+
+  h += '<div class="btnrow"><button class="btn sec w" type="button" id="ovBijwerken">' + mMaand(HUIDIGE) + ' bijwerken</button></div>';
+  h += footHtml();
+  body.innerHTML = h;
+  document.getElementById('ovBijwerken').addEventListener('click', () => ga('checkin'));
+  document.getElementById('actBtn').addEventListener('click', act.doe);
+}
+function drow(kleur, naam, sub, val){
+  const cls = val > 0 ? 'up' : (val < 0 ? 'dn' : 'flat');
+  return '<div class="drow"><span class="dot" style="background:' + kleur + '"></span><span class="nm">' + naam + '<small>' + sub + '</small></span><span class="val ' + cls + '">' + eurSign(val) + '</span></div>';
+}
+function footHtml(){
+  return '<p class="foot">Je saldo\'s staan alleen op dit apparaat, in de opslag van je browser. We sturen ze niet naar een server. Browseropslag kan verloren gaan, bijvoorbeeld bij het wissen van je browsergegevens: maak daarom af en toe een back-up via het menu.<br>' +
+    'Duin geeft geen persoonlijke aanbevelingen over specifieke financiële producten.</p>';
+}
+function maandActie(k, d){
+  const rs = rekeningen().filter(r => actief(r,k));
+  const open = rs.filter(r => !ingevuld(r,k));
+  if(open.length) return {
+    titel: open.length === 1 ? 'Eén rekening wacht nog' : open.length + ' rekeningen wachten nog',
+    tekst: 'Zolang ze leeg staan schuift de vorige stand door. Het verschil van deze maand klopt pas als ze erin staan.',
+    knop: 'Nu aanvullen',
+    doe: () => ga('checkin')
+  };
+  if(S().backup !== k && !demoAan) return {
+    titel: 'Maak een back-up van deze maand',
+    tekst: 'Je saldo\'s staan alleen in deze browser en browseropslag kan verloren gaan. Eén bestand bewaren betekent dat je bij een nieuwe telefoon niets kwijt bent.',
+    knop: 'Back-up maken',
+    doe: () => exporteer()
+  };
+  const n = gevuldeMaanden().length;
+  if(n < 3) return {
+    titel: 'Zet je oudere saldo\'s erbij',
+    tekst: 'Met drie of meer maanden wordt je gemiddelde spaargedrag betrouwbaarder en zegt de vooruitblik meer.',
+    knop: 'Rekening of maand toevoegen',
+    doe: () => ga('rekeningen')
+  };
+  return {
+    titel: 'Zet ' + MND[mParse(mAdd(k,1)).m-1] + ' alvast in je agenda',
+    tekst: 'Het ritueel werkt als het een vast moment is. Vijf minuten op de eerste van de maand is genoeg.',
+    knop: 'Herinnering downloaden',
+    doe: () => maakIcs(mAdd(k,1))
+  };
+}
+
+/* ============================================================
+   SHEETS: verplaatsen, opheffen, verwijderen, menu
+   ============================================================ */
+function openSheet(html){
+  document.getElementById('sheetIn').innerHTML = html;
+  document.getElementById('sheet').classList.add('on');
+  document.getElementById('sheet').setAttribute('aria-hidden','false');
+  document.getElementById('veil').classList.add('on');
+  const f = document.querySelector('#sheetIn button, #sheetIn input, #sheetIn select');
+  if(f) f.focus();
+}
+function sluitSheet(){
+  document.getElementById('sheet').classList.remove('on');
+  document.getElementById('sheet').setAttribute('aria-hidden','true');
+  document.getElementById('veil').classList.remove('on');
+}
+document.getElementById('veil').addEventListener('click', sluitSheet);
+document.addEventListener('keydown', e => { if(e.key === 'Escape') sluitSheet(); });
+
+function opties(exclId){
+  return rekeningen().filter(r => r.id !== exclId && actief(r,HUIDIGE) && !r.opgehevenPer)
+    .map(r => '<option value="' + r.id + '">' + esc(r.naam) + '</option>').join('');
+}
+function verplaatsSheet(id){
+  const r = rekById(id);
+  const opt = opties(id);
+  if(!opt){ toast('Je hebt nog maar één rekening om naartoe te verplaatsen.'); return; }
+  openSheet('<h2 id="sheetTitel">Verplaatst naar …</h2><p class="note">Vanaf ' + esc(r.naam) + '. Dit telt niet als groei of daling, alleen als verhuizing van je geld.</p>' +
+    '<label class="f" for="vpNaar">Naar welke rekening</label><select id="vpNaar">' + opt + '</select>' +
+    '<label class="f" for="vpBed">Bedrag</label><div class="amt"><span class="eur">€</span><input type="text" inputmode="decimal" id="vpBed" placeholder="0"></div>' +
+    '<div class="btnrow"><button class="btn" type="button" id="vpOk">Verplaatsing vastleggen</button><button class="btn sec" type="button" id="vpNo">Annuleren</button></div>' +
+    '<p class="note">Je vult daarna op beide rekeningen het nieuwe saldo in. Wij halen de verplaatsing uit het verschil.</p>');
+  document.getElementById('vpNo').addEventListener('click', sluitSheet);
+  document.getElementById('vpOk').addEventListener('click', () => {
+    const b = parseBedrag(document.getElementById('vpBed').value);
+    const naar = document.getElementById('vpNaar').value;
+    if(isNaN(b) || b <= 0){ toast('Vul een bedrag boven nul in.'); return; }
+    const m = maandData(HUIDIGE, true);
+    m.overboekingen.push({id:uid(), van:id, naar, bedrag:b});
+    bewaar(); sluitSheet(); renderAlles();
+    toast(eur(b) + ' verplaatst. Telt niet als groei.');
+  });
+}
+function opheffenSheet(id){
+  const r = rekById(id);
+  const saldo = saldoOp(r, HUIDIGE) || 0;
+  const opt = opties(id);
+  openSheet('<h2 id="sheetTitel">Rekening opheffen</h2><p class="note">' + esc(r.naam) + ' sluit in ' + mNaam(HUIDIGE) + '. De historie blijft staan, de rekening verdwijnt alleen uit je invoerlijst.</p>' +
+    '<label class="f" for="opBed">Eindsaldo</label><div class="amt"><span class="eur">€</span><input type="text" inputmode="decimal" id="opBed" value="' + String(saldo).replace('.',',') + '"></div>' +
+    '<label class="f" for="opNaar">Waar gaat dat saldo heen</label><select id="opNaar">' + opt + '<option value="__uit">Opgenomen, blijft niet in dit overzicht</option></select>' +
+    '<div class="btnrow"><button class="btn" type="button" id="opOk">Opheffen</button><button class="btn sec" type="button" id="opNo">Annuleren</button></div>');
+  document.getElementById('opNo').addEventListener('click', sluitSheet);
+  document.getElementById('opOk').addEventListener('click', () => {
+    const b = parseBedrag(document.getElementById('opBed').value);
+    const naar = document.getElementById('opNaar').value;
+    if(isNaN(b) || b < 0){ toast('Vul het eindsaldo in.'); return; }
+    const m = maandData(HUIDIGE, true);
+    if(naar !== '__uit' && b > 0) m.overboekingen.push({id:uid(), van:id, naar, bedrag:b});
+    r.opgehevenPer = HUIDIGE;
+    m.saldi[id] = 0;
+    delete concept[id];
+    bewaar(); sluitSheet(); renderAlles();
+    toast(naar === '__uit' ? 'Opgeheven. Het eindsaldo telt als opname.' : 'Opgeheven. Het saldo is verplaatst.');
+  });
+}
+function verwijderSheet(id){
+  const r = rekById(id);
+  openSheet('<h2 id="sheetTitel">Rekening verwijderen</h2><p class="note">Hiermee haal je ' + esc(r.naam) + ' én de hele historie van deze rekening weg. Wil je de historie bewaren, hef de rekening dan op in plaats van verwijderen.</p>' +
+    '<div class="btnrow"><button class="btn dang" type="button" id="vwOk">Definitief verwijderen</button><button class="btn sec" type="button" id="vwNo">Annuleren</button></div>');
+  document.getElementById('vwNo').addEventListener('click', sluitSheet);
+  document.getElementById('vwOk').addEventListener('click', () => {
+    const s = S();
+    s.rekeningen = s.rekeningen.filter(x => x.id !== id);
+    Object.keys(s.maanden).forEach(mk => {
+      const m = s.maanden[mk];
+      delete m.saldi[id]; delete m.rente[id]; delete m.inleg[id];
+      m.overboekingen = (m.overboekingen||[]).filter(o => o.van !== id && o.naar !== id);
+    });
+    delete concept[id];
+    bewaar(); sluitSheet(); renderAlles(); toast('Verwijderd.');
+  });
+}
+
+/* ---------- menu ---------- */
+document.getElementById('menuBtn').addEventListener('click', () => {
+  openSheet('<h2 id="sheetTitel">Menu</h2><p class="note">Je saldo\'s staan op dit apparaat, in de opslag van je browser. Duin stuurt ze niet naar een server.</p>' +
+    '<div class="menulist">' +
+    '<button type="button" id="mBack"><span class="mi">⬇</span><span><b>Back-up maken</b><small>' + (S().backup ? 'Laatste back-up: ' + mNaam(S().backup) : 'Nog geen back-up gemaakt') + '</small></span></button>' +
+    '<button type="button" id="mImp"><span class="mi">⬆</span><span><b>Back-up terugzetten</b><small>Kies een eerder bewaard duin-bestand</small></span></button>' +
+    '<button type="button" id="mDemo"><span class="mi">◍</span><span><b>' + (demoAan ? 'Demo verlaten' : 'Voorbeeld bekijken (demo)') + '</b><small>' + (demoAan ? 'Terug naar je eigen gegevens' : 'Het demo-huishouden De Vries, los van je eigen gegevens') + '</small></span></button>' +
+    '<button type="button" id="mWis"><span class="mi">⌫</span><span><b>Alles wissen</b><small>Verwijdert je rekeningen en je historie op dit apparaat</small></span></button>' +
+    '</div><input type="file" id="impFile" accept="application/json,.json" style="position:absolute;left:-9999px" aria-hidden="true" tabindex="-1">');
+  document.getElementById('mBack').addEventListener('click', exporteer);
+  document.getElementById('mImp').addEventListener('click', () => document.getElementById('impFile').click());
+  document.getElementById('impFile').addEventListener('change', importeer);
+  document.getElementById('mDemo').addEventListener('click', () => { sluitSheet(); zetDemo(!demoAan); });
+  document.getElementById('mWis').addEventListener('click', wisAlles);
+});
+function wisAlles(){
+  openSheet('<h2 id="sheetTitel">Alles wissen</h2><p class="note">Je rekeningen en je hele historie op dit apparaat verdwijnen. Maak eerst een back-up als je ze wilt bewaren.</p>' +
+    '<div class="btnrow"><button class="btn sec" type="button" id="wNo">Annuleren</button><button class="btn dang" type="button" id="wOk">Ja, wissen</button></div>');
+  document.getElementById('wNo').addEventListener('click', sluitSheet);
+  document.getElementById('wOk').addEventListener('click', () => {
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    echteStore = leegStore(); demoAan = false; demoStore = null; concept = {};
+    document.getElementById('demoBar').classList.remove('on');
+    sluitSheet(); renderAlles(); ga('rekeningen'); toast('Gewist. Je begint opnieuw.');
+  });
+}
+
+/* ---------- back-up ---------- */
+function exporteer(){
+  const data = demoAan ? demoStore : echteStore;
+  const naam = 'duin-maandupdate-' + HUIDIGE + (demoAan ? '-demo' : '') + '.json';
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = naam; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1500);
+  if(!demoAan){ echteStore.backup = HUIDIGE; bewaar(); }
+  sluitSheet(); renderAlles();
+  toast('Back-up gemaakt: ' + naam);
+}
+function importeer(e){
+  const f = e.target.files && e.target.files[0];
+  if(!f) return;
+  const fr = new FileReader();
+  fr.onload = () => {
+    try{
+      const d = JSON.parse(String(fr.result));
+      if(!d || !Array.isArray(d.rekeningen)) throw new Error('vorm');
+      d.v = 1; d.maanden = d.maanden || {};
+      demoAan = false; document.getElementById('demoBar').classList.remove('on');
+      echteStore = d; concept = {}; bewaar(); sluitSheet(); renderAlles(); ga('overzicht');
+      toast('Terugzetten gelukt: ' + d.rekeningen.length + ' rekeningen.');
+    }catch(err){ toast('Dit bestand kon ik niet lezen. Kies een eerder bewaard duin-bestand.'); }
+  };
+  fr.onerror = () => toast('Dit bestand kon ik niet lezen.');
+  fr.readAsText(f);
+}
+
+/* ---------- agendaherinnering ---------- */
+function maakIcs(maand){
+  const {y,m} = mParse(maand);
+  const dt = y + String(m).padStart(2,'0') + '01';
+  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Duin//maandritueel//NL','BEGIN:VEVENT',
+    'UID:duin-' + maand + '@mijnduin.nl','DTSTAMP:' + dt + 'T080000Z','DTSTART;VALUE=DATE:' + dt,
+    'RRULE:FREQ=MONTHLY;BYMONTHDAY=1','SUMMARY:Duin maand-update','DESCRIPTION:Vijf minuten: saldo\'s bijwerken in Duin.',
+    'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const blob = new Blob([ics], {type:'text/calendar'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'duin-maand-update.ics'; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1500);
+  toast('Herinnering gedownload.');
+}
+
+/* ---------- demo ---------- */
+function zetDemo(aan){
+  demoAan = !!aan;
+  concept = {};
+  if(demoAan){ demoStore = bouwDemo(); }
+  document.getElementById('demoBar').classList.toggle('on', demoAan);
+  renderAlles();
+  ga(demoAan ? 'overzicht' : (rekeningen().length ? 'overzicht' : 'rekeningen'));
+  toast(demoAan ? 'Demo aan. Je eigen gegevens blijven ongemoeid.' : 'Terug bij je eigen gegevens.');
+}
+document.getElementById('demoExit').addEventListener('click', () => zetDemo(false));
+
+/* ============================================================
+   ROUTER
+   ============================================================ */
+const VIEWS = ['rekeningen','checkin','overzicht'];
+let huidigeView = 'overzicht';
+function ga(v, vervang){
+  if(VIEWS.indexOf(v) < 0) v = 'overzicht';
+  huidigeView = v;
+  VIEWS.forEach(x => {
+    document.getElementById('view-' + x).classList.toggle('on', x === v);
+    const t = document.querySelector('[data-view="' + x + '"]');
+    t.setAttribute('aria-selected', String(x === v));
+  });
+  const h = '#' + v;
+  if(location.hash !== h){
+    if(vervang) history.replaceState({v}, '', h); else history.pushState({v}, '', h);
+  }
+  const bar = document.getElementById('stickyBar');
+  const toon = (v === 'checkin' && rekeningen().length > 0);
+  bar.classList.toggle('on', toon);
+  document.body.classList.toggle('hasbar', toon);
+  if(toon) werkBalkBij();
+  window.scrollTo({top:0});
+}
+window.addEventListener('popstate', () => {
+  const v = (location.hash || '').replace('#','');
+  ga(VIEWS.indexOf(v) >= 0 ? v : 'overzicht', true);
+});
+document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => ga(b.dataset.view)));
+document.getElementById('sbAction').addEventListener('click', rondAf);
+
+/* bronchips (bron op verzoek) */
+document.addEventListener('click', e => {
+  const b = e.target.closest('.bronchip');
+  if(!b) return;
+  const n = document.getElementById(b.dataset.bron);
+  if(!n) return;
+  const open = b.getAttribute('aria-expanded') === 'true';
+  b.setAttribute('aria-expanded', String(!open));
+  n.hidden = open;
+});
+
+/* ============================================================
+   START
+   ============================================================ */
+function renderAlles(){
+  renderRekeningen();
+  renderCheckin();
+  renderOverzicht();
+  const bar = document.getElementById('stickyBar');
+  const toon = (huidigeView === 'checkin' && rekeningen().length > 0);
+  bar.classList.toggle('on', toon);
+  document.body.classList.toggle('hasbar', toon);
+}
+function beginStand(){
+  const rs = rekeningen();
+  if(!rs.length) return 'rekeningen';
+  const m = S().maanden[HUIDIGE];
+  if(!m || !m.afgerond) return 'checkin';
+  return 'overzicht';
+}
+(function start(){
+  echteStore = laad();
+  document.getElementById('accStart').value = HUIDIGE;
+  resetForm();
+  renderAlles();
+  const h = (location.hash || '').replace('#','');
+  ga(VIEWS.indexOf(h) >= 0 ? h : beginStand(), true);
+  /* web app manifest: alleen op http(s), een data-URL faalt op file:// */
+  if(location.protocol === 'http:' || location.protocol === 'https:'){
+    try{
+      const mf = {name:'Duin maand-update', short_name:'Duin', start_url:'./', display:'standalone',
+        background_color:'#F4F0E6', theme_color:'#12332B', lang:'nl', orientation:'portrait',
+        icons:[{src:document.querySelector('link[rel=icon]').getAttribute('href'), sizes:'any', type:'image/svg+xml'},
+               {src:document.querySelector('link[rel=apple-touch-icon]').getAttribute('href'), sizes:'180x180', type:'image/png', purpose:'any'}]};
+      const l = document.createElement('link');
+      l.rel = 'manifest';
+      l.href = URL.createObjectURL(new Blob([JSON.stringify(mf)], {type:'application/manifest+json'}));
+      document.head.appendChild(l);
+    }catch(e){ /* manifest is extra, nooit blokkerend */ }
+  }
+})();
+</script>
+
+</body>
+</html>

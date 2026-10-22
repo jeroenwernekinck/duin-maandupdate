@@ -87,7 +87,7 @@ h1{font-size:28px;margin-bottom:6px}
 
 /* ---------- formulier ---------- */
 label.f{display:block;font-size:12.5px;font-weight:600;color:var(--ink2);margin:12px 0 5px}
-input[type=text],input[type=number],input[type=month],select{width:100%;font-family:var(--sans);font-size:16px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);min-height:48px}
+input[type=text],input[type=number],input[type=month],input[type=email],input[type=password],select{width:100%;font-family:var(--sans);font-size:16px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);min-height:48px}
 input:disabled,select:disabled{background:var(--sand2);color:var(--faint)}
 .segtype{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
 .segtype button{all:unset;cursor:pointer;text-align:center;padding:12px 6px;border-radius:13px;border:1px solid var(--line);font-size:13.5px;background:#fff;min-height:48px;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
@@ -193,6 +193,17 @@ details.menu[open]>summary::after{content:"▴"}
 /* ---------- toast ---------- */
 .toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(86px + var(--safe-b));background:var(--pine-ink);color:#fff;font-size:13.5px;padding:11px 17px;border-radius:999px;z-index:120;opacity:0;pointer-events:none;transition:.25s;max-width:92vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%)}
+
+/* ---------- account en synchronisatie ---------- */
+.syncregel{font-size:12.5px;color:var(--mut);display:flex;align-items:center;gap:7px;margin:0 0 14px;line-height:1.5}
+.syncregel i{width:7px;height:7px;border-radius:50%;background:var(--faint);flex:none}
+.syncregel.ok i{background:var(--moss)}
+.syncregel.fout i{background:var(--gold)}
+.acct{background:#fff;border:1px solid var(--line-soft);border-radius:15px;padding:13px 15px;margin:12px 0 8px}
+.acct b{font-weight:600;display:block;font-size:14.5px;word-break:break-word}
+.acct .syncregel{margin:3px 0 0}
+.melding{font-size:13px;border-radius:11px;padding:10px 12px;margin-top:10px;line-height:1.55;background:var(--warn-soft);color:var(--warn)}
+.melding.goed{background:var(--moss-soft);color:var(--moss-dark)}
 
 .foot{margin-top:26px;text-align:center;color:var(--faint);font-size:11.5px;line-height:1.75}
 .foot a{color:var(--mut)}
@@ -337,6 +348,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
    ============================================================ */
 
 const KEY = 'duinMaandritueel.v1';
+/* synchronisatie: eigen Supabase-project, publishable key (bedoeld voor de browser).
+   De beveiliging zit in row-level security: zonder geldige login geeft deze sleutel nergens toegang toe. */
+const SESSIE_KEY = 'duinMaandritueel.sessie.v1';
+const SUPA_URL = 'https://aujhznvgzieyluoacczt.supabase.co';
+const SUPA_KEY = 'sb_publishable_aacXL-hIfiwDZIjw0Ymb0A_XEsDOAsu';
 const MND = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
 const MND_K = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
 const TYPES = {spaar:'Spaar', betaal:'Betaal', belegging:'Belegging', overig:'Overig'};
@@ -394,11 +410,195 @@ function laad(){
   }catch(e){ return leegStore(); }
 }
 function S(){ return demoAan ? demoStore : echteStore; }
-function bewaar(){
+function bewaarLokaal(){
   if(demoAan) return;             /* demo raakt de echte sleutel nooit aan */
   try{ localStorage.setItem(KEY, JSON.stringify(echteStore)); }
   catch(e){ toast('Opslaan lukt niet. Maak een back-up via het menu.'); }
 }
+function bewaar(){
+  if(demoAan) return;
+  /* stille migratie: oudere opslag zonder tijdstempel krijgt er hier een */
+  echteStore.bijgewerkt = new Date().toISOString();
+  bewaarLokaal();
+  planPush();
+}
+
+/* ============================================================
+   INLOGGEN EN SYNCHRONISEREN (Supabase, kale fetch)
+   Alles begint met een sessie-guard: zonder sessie doet deze pagina
+   geen enkele netwerk-call. Demo synchroniseert nooit.
+   ============================================================ */
+let sessie = null;
+let syncStand = 'uit';            /* uit | bezig | ok | fout */
+let syncTijd = null;
+let pushTimer = null;
+let pushNodig = false;
+
+function laadSessie(){
+  try{
+    const raw = localStorage.getItem(SESSIE_KEY);
+    if(!raw) return null;
+    const s = JSON.parse(raw);
+    if(!s || !s.access_token || !s.refresh_token) return null;
+    return s;
+  }catch(e){ return null; }
+}
+function bewaarSessie(s){
+  sessie = s;
+  try{ localStorage.setItem(SESSIE_KEY, JSON.stringify(s)); }catch(e){}
+}
+function wisSessie(){
+  sessie = null;
+  try{ localStorage.removeItem(SESSIE_KEY); }catch(e){}
+}
+function ingelogd(){ return !!(sessie && sessie.access_token); }
+
+function zetSync(stand){
+  syncStand = stand;
+  if(stand === 'ok') syncTijd = new Date();
+  werkSyncBij();
+}
+function tijdKort(d){ return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); }
+function syncTekst(){
+  if(!ingelogd()) return 'Alleen op dit apparaat';
+  if(syncStand === 'fout') return 'Niet gesynchroniseerd, we proberen het opnieuw';
+  if(syncStand === 'ok') return 'Gesynchroniseerd · ' + tijdKort(syncTijd || new Date());
+  return 'Synchroniseren …';
+}
+function syncHtml(){
+  const kl = !ingelogd() ? '' : (syncStand === 'ok' ? ' ok' : (syncStand === 'fout' ? ' fout' : ''));
+  return '<p class="syncregel' + kl + '"><i></i><span>' + esc(syncTekst()) + '</span></p>';
+}
+function werkSyncBij(){
+  const kl = !ingelogd() ? '' : (syncStand === 'ok' ? 'ok' : (syncStand === 'fout' ? 'fout' : ''));
+  document.querySelectorAll('.syncregel').forEach(el => {
+    el.className = 'syncregel' + (kl ? ' ' + kl : '');
+    const s = el.querySelector('span');
+    if(s) s.textContent = syncTekst();
+  });
+}
+
+/* token geldig houden; vernieuwt zodra er minder dan een minuut over is */
+async function geldigToken(){
+  if(!ingelogd()) return null;
+  const nuSec = Math.floor(Date.now()/1000);
+  if(sessie.expires_at && (sessie.expires_at - 60) > nuSec) return sessie.access_token;
+  return await ververs();
+}
+async function ververs(){
+  if(!ingelogd() || !sessie.refresh_token) return null;
+  let res;
+  try{
+    res = await fetch(SUPA_URL + '/auth/v1/token?grant_type=refresh_token', {
+      method:'POST',
+      headers:{apikey:SUPA_KEY, 'Content-Type':'application/json'},
+      body: JSON.stringify({refresh_token: sessie.refresh_token})
+    });
+  }catch(e){
+    /* geen verbinding: de sessie blijft staan, we proberen het later opnieuw */
+    zetSync('fout');
+    return null;
+  }
+  if(!res.ok){ sessieVerloren(); return null; }
+  try{
+    const j = await res.json();
+    if(!j || !j.access_token){ sessieVerloren(); return null; }
+    bewaarSessie({
+      access_token: j.access_token,
+      refresh_token: j.refresh_token || sessie.refresh_token,
+      expires_at: Math.floor(Date.now()/1000) + (j.expires_in || 3600),
+      user_id: (j.user && j.user.id) || sessie.user_id || '',
+      email: (j.user && j.user.email) || sessie.email || ''
+    });
+    return sessie.access_token;
+  }catch(e){ sessieVerloren(); return null; }
+}
+function sessieVerloren(){
+  wisSessie();
+  syncStand = 'uit';
+  renderAlles();
+  toast('Je bent uitgelogd. Je saldo\'s staan nog op dit apparaat; log in om weer te synchroniseren.');
+}
+
+async function apiFetch(pad, opties, naVerversen){
+  if(demoAan || !ingelogd()) return null;
+  const token = await geldigToken();
+  if(!token) return null;
+  const o = Object.assign({}, opties || {});
+  o.headers = Object.assign({apikey: SUPA_KEY, 'Authorization': 'Bearer ' + token}, (opties && opties.headers) || {});
+  const res = await fetch(SUPA_URL + pad, o);
+  if(res.status === 401 && !naVerversen){
+    const nieuw = await ververs();
+    if(!nieuw) return null;
+    return apiFetch(pad, opties, true);
+  }
+  return res;
+}
+
+/* ophalen: nieuwste wint. Server nieuwer -> die wordt de lokale stand.
+   Lokaal nieuwer of server leeg -> wegschrijven (meteen de migratie van bestaande data). */
+async function cloudPull(){
+  if(demoAan || !ingelogd()) return;
+  zetSync('bezig');
+  try{
+    const res = await apiFetch('/rest/v1/maandritueel?select=data,updated_at', {headers:{'Accept':'application/json'}});
+    if(!res || !res.ok){ zetSync('fout'); return; }
+    const rijen = await res.json();
+    const rij = Array.isArray(rijen) && rijen.length ? rijen[0] : null;
+    if(rij && rij.data && Array.isArray(rij.data.rekeningen)){
+      const serverTijd = Date.parse(rij.updated_at || '') || 0;
+      const lokaalTijd = Date.parse(echteStore.bijgewerkt || '') || 0;
+      if(serverTijd > lokaalTijd){
+        const d = rij.data;
+        d.v = 1; d.maanden = d.maanden || {}; d.bijgewerkt = rij.updated_at;
+        echteStore = d; concept = {};
+        bewaarLokaal();
+        zetSync('ok');
+        renderAlles();
+        toast('Bijgewerkt vanaf je andere apparaat.');
+        return;
+      }
+    }
+    await cloudPush();
+  }catch(e){ zetSync('fout'); }
+}
+
+async function cloudPush(){
+  clearTimeout(pushTimer);
+  if(demoAan || !ingelogd() || !sessie.user_id) return;
+  try{
+    if(!echteStore.bijgewerkt){ echteStore.bijgewerkt = new Date().toISOString(); bewaarLokaal(); }
+    const res = await apiFetch('/rest/v1/maandritueel', {
+      method:'POST',
+      headers:{'Content-Type':'application/json', 'Prefer':'resolution=merge-duplicates'},
+      body: JSON.stringify([{user_id: sessie.user_id, data: echteStore, updated_at: echteStore.bijgewerkt}])
+    });
+    if(res && res.ok){ pushNodig = false; zetSync('ok'); }
+    else { zetSync('fout'); }
+  }catch(e){ zetSync('fout'); }
+}
+function planPush(){
+  if(demoAan || !ingelogd()) return;
+  pushNodig = true;
+  zetSync('bezig');
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(() => { cloudPush(); }, 2000);
+}
+async function cloudWis(){
+  if(demoAan || !ingelogd() || !sessie.user_id) return false;
+  try{
+    const res = await apiFetch('/rest/v1/maandritueel?user_id=eq.' + encodeURIComponent(sessie.user_id), {method:'DELETE'});
+    return !!(res && res.ok);
+  }catch(e){ return false; }
+}
+document.addEventListener('visibilitychange', () => {
+  /* laatste kans op mobiel: de pagina kan zo weg zijn */
+  if(document.visibilityState === 'hidden' && pushNodig) cloudPush();
+});
+window.addEventListener('online', () => {
+  /* de statusregel belooft een nieuwe poging: doe die ook zodra er weer verbinding is */
+  if(pushNodig) cloudPush();
+});
 
 /* ============================================================
    REKENMODEL
@@ -1005,6 +1205,7 @@ function renderOverzicht(){
   if(!rs.length){
     body.innerHTML = '<span class="eyebrow h-eyebrow">Overzicht</span><h1>Hier komt je duin te staan</h1>' +
       '<p class="lead">Nog geen cijfers, wel al een beeld van wat je straks ziet: je totaal, wat eraan bijdroeg en een vooruitblik in banden.</p>' +
+      (demoAan ? '' : syncHtml()) +
       '<div class="potential"><svg width="200" height="70" viewBox="0 0 200 70" aria-hidden="true">' +
       '<path d="M6 58 C60 55, 130 44, 194 32" fill="none" stroke="#E4D9BE" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 6"/>' +
       '<path d="M6 50 C60 46, 130 30, 194 18" fill="none" stroke="#C9A35B" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 6"/>' +
@@ -1050,7 +1251,8 @@ function renderOverzicht(){
     '<p class="lead">Dit is het totaal van de rekeningen die je hier bijhoudt. Je woning, je pensioen en andere bezittingen staan in Mijn Duin.</p>' +
     '<div class="hero"><small>' + (demoAan ? 'TOTAAL DEMO-HUISHOUDEN DE VRIES' : 'TOTAAL OP JE REKENINGEN') + '</small><div class="big">' + eur(tot) + '</div>' + deltaHtml +
     '<div style="margin:14px -4px 0">' + miniDuin(rs) + '</div>' +
-    '<p class="sum">' + sum + '</p></div>';
+    '<p class="sum">' + sum + '</p></div>' +
+    (demoAan ? '' : syncHtml());
 
   /* ---- decompositie ---- */
   if(d.delta !== null){
@@ -1112,7 +1314,10 @@ function drow(kleur, naam, sub, val){
   return '<div class="drow"><span class="dot" style="background:' + kleur + '"></span><span class="nm">' + naam + '<small>' + sub + '</small></span><span class="val ' + cls + '">' + eurSign(val) + '</span></div>';
 }
 function footHtml(){
-  return '<p class="foot">Je saldo\'s staan alleen op dit apparaat, in de opslag van je browser. We sturen ze niet naar een server. Browseropslag kan verloren gaan, bijvoorbeeld bij het wissen van je browsergegevens: maak daarom af en toe een back-up via het menu.<br>' +
+  const privacy = ingelogd()
+    ? 'Je saldo\'s staan in jouw afgeschermde deel van de Duin-database (EU) en in de opslag van deze browser. Verzending gaat versleuteld (https). Maak af en toe een back-up via het menu.'
+    : 'Je saldo\'s staan alleen op dit apparaat, in de opslag van je browser. We sturen ze niet naar een server. Browseropslag kan verloren gaan, bijvoorbeeld bij het wissen van je browsergegevens: maak daarom af en toe een back-up via het menu.';
+  return '<p class="foot">' + privacy + '<br>' +
     'Duin geeft geen persoonlijke aanbevelingen over specifieke financiële producten.</p>';
 }
 function maandActie(k, d){
@@ -1124,9 +1329,13 @@ function maandActie(k, d){
     knop: 'Nu aanvullen',
     doe: () => ga('checkin')
   };
-  if(S().backup !== k && !demoAan) return {
+  /* ingelogd is de database de hoofdvangrail: dan vragen we alleen om een eerste back-up */
+  const backupNodig = ingelogd() ? !S().backup : S().backup !== k;
+  if(backupNodig && !demoAan) return {
     titel: 'Maak een back-up van deze maand',
-    tekst: 'Je saldo\'s staan alleen in deze browser en browseropslag kan verloren gaan. Eén bestand bewaren betekent dat je bij een nieuwe telefoon niets kwijt bent.',
+    tekst: ingelogd()
+      ? 'Je saldo\'s staan in de Duin-database en in deze browser. Eén bestand op je eigen computer is de laatste vangrail, ook als je ooit stopt met inloggen.'
+      : 'Je saldo\'s staan alleen in deze browser en browseropslag kan verloren gaan. Eén bestand bewaren betekent dat je bij een nieuwe telefoon niets kwijt bent.',
     knop: 'Back-up maken',
     doe: () => exporteer()
   };
@@ -1228,15 +1437,170 @@ function verwijderSheet(id){
   });
 }
 
+/* ---------- inloggen ---------- */
+function melding(txt, goed){
+  const el = document.getElementById('loginMelding');
+  if(!el) return;
+  el.className = 'melding' + (goed ? ' goed' : '');
+  el.textContent = txt;
+  el.hidden = false;
+}
+function mailKlopt(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+function loginSheet(modus){
+  const nieuw = (modus === 'nieuw');
+  const mail = esc((sessie && sessie.email) || '');
+  openSheet('<h2 id="sheetTitel">' + (nieuw ? 'Account aanmaken' : 'Inloggen voor synchronisatie') + '</h2>' +
+    '<p class="note">' + (nieuw
+      ? 'Kies een e-mailadres en een wachtwoord van minstens 8 tekens. Je saldo\'s komen dan in jouw afgeschermde deel van de Duin-database en staan op al je apparaten.'
+      : 'Log in met je e-mailadres en je wachtwoord. Daarna staan je saldo\'s ook in jouw afgeschermde deel van de Duin-database en zie je ze op al je apparaten.') + '</p>' +
+    '<label class="f" for="loginMail">E-mailadres</label>' +
+    '<input type="email" id="loginMail" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="jij@voorbeeld.nl" value="' + mail + '">' +
+    '<label class="f" for="loginWw">Wachtwoord</label>' +
+    '<input type="password" id="loginWw" autocomplete="' + (nieuw ? 'new-password' : 'current-password') + '" minlength="8" placeholder="Minstens 8 tekens">' +
+    '<p class="melding" id="loginMelding" hidden></p>' +
+    '<div class="btnrow"><button class="btn" type="button" id="loginGo">' + (nieuw ? 'Account aanmaken' : 'Inloggen') + '</button>' +
+    '<button class="btn sec" type="button" id="loginNo">Annuleren</button></div>' +
+    '<div class="btnrow"><button class="btn gh w" type="button" id="loginWissel">' +
+      (nieuw ? 'Heb je al een account? Inloggen' : 'Eerste keer? Account aanmaken') + '</button></div>' +
+    '<p class="note">' + (nieuw ? 'We gebruiken je e-mailadres alleen om je te laten inloggen. Dit is een testomgeving van Duin. ' : '') + 'Zonder inloggen blijft alles gewoon werken. Je saldo\'s staan dan alleen op dit apparaat.</p>');
+  document.getElementById('loginNo').addEventListener('click', sluitSheet);
+  document.getElementById('loginWissel').addEventListener('click', () => {
+    const bewaardMail = document.getElementById('loginMail').value;
+    loginSheet(nieuw ? 'in' : 'nieuw');
+    document.getElementById('loginMail').value = bewaardMail;
+  });
+  const veldMail = document.getElementById('loginMail');
+  const veldWw = document.getElementById('loginWw');
+  [veldMail, veldWw].forEach(v => v.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('loginGo').click(); }
+  }));
+  document.getElementById('loginGo').addEventListener('click', () => logIn(nieuw));
+  (mail ? veldWw : veldMail).focus();
+}
+/* één pad voor inloggen en account aanmaken; zonder geldige invoer gaat er niets de deur uit */
+async function logIn(nieuw){
+  const knop = document.getElementById('loginGo');
+  const mail = (document.getElementById('loginMail').value || '').trim();
+  const ww = document.getElementById('loginWw').value || '';
+  if(!mail){ melding('Vul je e-mailadres in.'); return; }
+  if(!mailKlopt(mail)){ melding('Dit e-mailadres klopt nog niet. Controleer het even.'); return; }
+  if(!ww){ melding('Vul je wachtwoord in.'); return; }
+  if(nieuw && ww.length < 8){ melding('Kies een wachtwoord van minstens 8 tekens.'); return; }
+  knop.disabled = true;
+  melding(nieuw ? 'We maken je account aan …' : 'Even kijken …', true);
+  const pad = nieuw ? '/auth/v1/signup' : '/auth/v1/token?grant_type=password';
+  let res;
+  try{
+    res = await fetch(SUPA_URL + pad, {
+      method:'POST',
+      headers:{apikey:SUPA_KEY, 'Content-Type':'application/json'},
+      body: JSON.stringify({email: mail, password: ww})
+    });
+  }catch(e){
+    knop.disabled = false;
+    melding('Geen verbinding. Probeer het zo nog eens.');
+    return;
+  }
+  let j = null;
+  try{ j = await res.json(); }catch(e){ j = null; }
+  if(!res.ok){
+    knop.disabled = false;
+    const code = (j && (j.error_code || j.msg || j.message || '')) + '';
+    if(nieuw){
+      if(/password/i.test(code) && /(short|least|6|8)/i.test(code)) melding('Kies een wachtwoord van minstens 8 tekens.');
+      else if(/registered|exists/i.test(code)) melding('Er is al een account met dit e-mailadres. Log in met je wachtwoord.');
+      else melding('Aanmaken lukt nu niet. Probeer het zo nog eens.');
+    }else{
+      if(/confirm/i.test(code)) melding('Bevestig eerst je e-mailadres via de mail die je kreeg.');
+      else melding('E-mailadres en wachtwoord passen niet bij elkaar.');
+    }
+    return;
+  }
+  if(!j || !j.access_token){
+    knop.disabled = false;
+    melding(nieuw ? 'Bevestig eerst je e-mailadres via de mail die je kreeg.' : 'E-mailadres en wachtwoord passen niet bij elkaar.');
+    return;
+  }
+  bewaarSessie({
+    access_token: j.access_token,
+    refresh_token: j.refresh_token || '',
+    expires_at: Math.floor(Date.now()/1000) + (j.expires_in || 3600),
+    user_id: (j.user && j.user.id) || '',
+    email: (j.user && j.user.email) || mail
+  });
+  sluitSheet();
+  zetSync('bezig');
+  renderAlles();
+  toast('Ingelogd. Je saldo\'s synchroniseren nu.');
+  cloudPull();
+}
+async function uitloggen(){
+  const was = sessie;
+  wisSessie();
+  syncStand = 'uit';
+  clearTimeout(pushTimer); pushNodig = false;
+  sluitSheet(); renderAlles();
+  toast('Uitgelogd. Je saldo\'s staan nog op dit apparaat.');
+  try{
+    await fetch(SUPA_URL + '/auth/v1/logout', {
+      method:'POST',
+      headers:{apikey:SUPA_KEY, 'Authorization':'Bearer ' + was.access_token, 'Content-Type':'application/json'}
+    });
+  }catch(e){ /* uitloggen is lokaal al gebeurd */ }
+}
+/* magic-link als terugvaloptie: tokens komen dan in de hash binnen */
+function hashSessie(){
+  const h = location.hash || '';
+  if(h.indexOf('access_token=') < 0) return false;
+  let p;
+  try{ p = new URLSearchParams(h.replace(/^#/,'')); }catch(e){ return false; }
+  const at = p.get('access_token'), rt = p.get('refresh_token');
+  if(!at) return false;
+  bewaarSessie({
+    access_token: at,
+    refresh_token: rt || '',
+    expires_at: Math.floor(Date.now()/1000) + (parseInt(p.get('expires_in'),10) || 3600),
+    user_id: '',
+    email: ''
+  });
+  try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){}
+  return true;
+}
+async function haalGebruiker(){
+  try{
+    const res = await apiFetch('/auth/v1/user', {headers:{'Accept':'application/json'}});
+    if(!res || !res.ok) return;
+    const j = await res.json();
+    if(j && j.id) bewaarSessie(Object.assign({}, sessie, {user_id:j.id, email:j.email || ''}));
+  }catch(e){}
+}
+
 /* ---------- menu ---------- */
+function accountBlok(){
+  if(!ingelogd()){
+    return '<div class="menulist"><button type="button" id="mLogin"><span class="mi">⇄</span>' +
+      '<span><b>Inloggen voor synchronisatie</b><small>Je saldo\'s op al je apparaten, veilig afgeschermd</small></span></button></div>';
+  }
+  return '<div class="acct"><div class="rowline"><span class="grow"><b>Ingelogd als ' + esc(sessie.email || 'je e-mailadres') + '</b>' +
+    syncHtml() + '</span><button class="btn sec sm" type="button" id="mUit">Uitloggen</button></div></div>';
+}
 document.getElementById('menuBtn').addEventListener('click', () => {
-  openSheet('<h2 id="sheetTitel">Menu</h2><p class="note">Je saldo\'s staan op dit apparaat, in de opslag van je browser. Duin stuurt ze niet naar een server.</p>' +
+  openSheet('<h2 id="sheetTitel">Menu</h2><p class="note">' +
+    (ingelogd()
+      ? 'Je saldo\'s staan in jouw afgeschermde deel van de Duin-database (EU) en in de opslag van deze browser. Verzending gaat versleuteld (https).'
+      : 'Je saldo\'s staan op dit apparaat, in de opslag van je browser. Duin stuurt ze niet naar een server.') + '</p>' +
+    accountBlok() +
     '<div class="menulist">' +
     '<button type="button" id="mBack"><span class="mi">⬇</span><span><b>Back-up maken</b><small>' + (S().backup ? 'Laatste back-up: ' + mNaam(S().backup) : 'Nog geen back-up gemaakt') + '</small></span></button>' +
     '<button type="button" id="mImp"><span class="mi">⬆</span><span><b>Back-up terugzetten</b><small>Kies een eerder bewaard duin-bestand</small></span></button>' +
     '<button type="button" id="mDemo"><span class="mi">◍</span><span><b>' + (demoAan ? 'Demo verlaten' : 'Voorbeeld bekijken (demo)') + '</b><small>' + (demoAan ? 'Terug naar je eigen gegevens' : 'Het demo-huishouden De Vries, los van je eigen gegevens') + '</small></span></button>' +
     '<button type="button" id="mWis"><span class="mi">⌫</span><span><b>Alles wissen</b><small>Verwijdert je rekeningen en je historie op dit apparaat</small></span></button>' +
     '</div><input type="file" id="impFile" accept="application/json,.json" style="position:absolute;left:-9999px" aria-hidden="true" tabindex="-1">');
+  const mLogin = document.getElementById('mLogin');
+  if(mLogin) mLogin.addEventListener('click', () => loginSheet('in'));
+  const mUit = document.getElementById('mUit');
+  if(mUit) mUit.addEventListener('click', uitloggen);
   document.getElementById('mBack').addEventListener('click', exporteer);
   document.getElementById('mImp').addEventListener('click', () => document.getElementById('impFile').click());
   document.getElementById('impFile').addEventListener('change', importeer);
@@ -1244,14 +1608,33 @@ document.getElementById('menuBtn').addEventListener('click', () => {
   document.getElementById('mWis').addEventListener('click', wisAlles);
 });
 function wisAlles(){
-  openSheet('<h2 id="sheetTitel">Alles wissen</h2><p class="note">Je rekeningen en je hele historie op dit apparaat verdwijnen. Maak eerst een back-up als je ze wilt bewaren.</p>' +
-    '<div class="btnrow"><button class="btn sec" type="button" id="wNo">Annuleren</button><button class="btn dang" type="button" id="wOk">Ja, wissen</button></div>');
+  const cloud = ingelogd();
+  openSheet('<h2 id="sheetTitel">Alles wissen</h2>' +
+    '<p class="note">Je rekeningen en je hele historie verdwijnen. Maak eerst een back-up als je ze wilt bewaren.</p>' +
+    (cloud
+      ? '<p class="note">Je bent ingelogd, dus je saldo\'s staan ook in de Duin-database. Kies wat je wilt wissen. Wis je alleen dit apparaat, dan komen je saldo\'s terug zodra dit apparaat weer synchroniseert.</p>' +
+        '<div class="btnrow"><button class="btn dang" type="button" id="wOk">Alleen dit apparaat wissen</button>' +
+        '<button class="btn dang" type="button" id="wOkDb">Dit apparaat en de database wissen</button>' +
+        '<button class="btn sec" type="button" id="wNo">Annuleren</button></div>'
+      : '<div class="btnrow"><button class="btn sec" type="button" id="wNo">Annuleren</button><button class="btn dang" type="button" id="wOk">Ja, wissen</button></div>'));
   document.getElementById('wNo').addEventListener('click', sluitSheet);
-  document.getElementById('wOk').addEventListener('click', () => {
+  function wisLokaal(){
+    clearTimeout(pushTimer); pushNodig = false;
     try{ localStorage.removeItem(KEY); }catch(e){}
     echteStore = leegStore(); demoAan = false; demoStore = null; concept = {};
     document.getElementById('demoBar').classList.remove('on');
-    sluitSheet(); renderAlles(); ga('rekeningen'); toast('Gewist. Je begint opnieuw.');
+    sluitSheet(); renderAlles(); ga('rekeningen');
+  }
+  document.getElementById('wOk').addEventListener('click', () => {
+    wisLokaal();
+    toast('Gewist. Je begint opnieuw.');
+  });
+  const db = document.getElementById('wOkDb');
+  if(db) db.addEventListener('click', async () => {
+    const gelukt = await cloudWis();
+    wisLokaal();
+    zetSync(gelukt ? 'ok' : 'fout');
+    toast(gelukt ? 'Gewist, hier en in de database.' : 'Hier gewist. De database konden we nu niet bereiken.');
   });
 }
 
@@ -1279,6 +1662,7 @@ function importeer(e){
       d.v = 1; d.maanden = d.maanden || {};
       demoAan = false; document.getElementById('demoBar').classList.remove('on');
       echteStore = d; concept = {}; bewaar(); sluitSheet(); renderAlles(); ga('overzicht');
+      cloudPush();                 /* terugzetten is een bewuste keuze en wint van de database */
       toast('Terugzetten gelukt: ' + d.rekeningen.length + ' rekeningen.');
     }catch(err){ toast('Dit bestand kon ik niet lezen. Kies een eerder bewaard duin-bestand.'); }
   };
@@ -1377,11 +1761,19 @@ function beginStand(){
 }
 (function start(){
   echteStore = laad();
+  sessie = laadSessie();
+  const viaLink = hashSessie();   /* magic-link als terugvaloptie: tokens staan in de hash */
+  if(ingelogd()) syncStand = 'bezig';
   document.getElementById('accStart').value = HUIDIGE;
   resetForm();
   renderAlles();
   const h = (location.hash || '').replace('#','');
   ga(VIEWS.indexOf(h) >= 0 ? h : beginStand(), true);
+  /* zonder sessie gebeurt hier niets: de pagina doet dan geen enkele netwerk-call */
+  if(ingelogd()){
+    const eerst = viaLink ? haalGebruiker().then(() => renderAlles()) : Promise.resolve();
+    eerst.then(() => cloudPull()).catch(() => zetSync('fout'));
+  }
   /* web app manifest: alleen op http(s), een data-URL faalt op file:// */
   if(location.protocol === 'http:' || location.protocol === 'https:'){
     try{

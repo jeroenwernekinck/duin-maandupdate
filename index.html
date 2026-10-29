@@ -1044,13 +1044,30 @@ document.getElementById('accForm').addEventListener('submit', e => {
    B. MAAND-CHECK-IN
    ============================================================ */
 let concept = {};   /* ingetypte saldo's die nog niet bewaard zijn */
+let doelMaand = HUIDIGE;   /* de maand die je in de check-in bijwerkt; een eerdere maand kun je alsnog invullen */
+
+function zetDoelMaand(k){
+  if(!/^\d{4}-\d{2}$/.test(k || '')) return;
+  if(k > HUIDIGE) k = HUIDIGE;
+  if(doelMaand === k) return;
+  doelMaand = k;
+  concept = {};
+  renderCheckin();
+  window.scrollTo({top:0});
+}
+
+/* rekeningen die in de check-in van doelMaand horen: actief, of pas later gestart
+   (dan kun je alsnog een eerdere stand invullen; de startmaand schuift dan mee terug) */
+function checkinRekeningen(){
+  return rekeningen().filter(r => actief(r, doelMaand) || (!r.opgehevenPer && r.startMaand > doelMaand));
+}
 
 function renderCheckin(){
   const body = document.getElementById('ciBody');
-  const rs = rekeningen().filter(r => actief(r, HUIDIGE));
-  const vorig = vorigeMaand(HUIDIGE);
-  document.getElementById('ciEyebrow').textContent = mNaam(HUIDIGE);
-  document.getElementById('ciTitel').textContent = 'Werk ' + mMaand(HUIDIGE) + ' bij';
+  const rs = checkinRekeningen();
+  const vorig = vorigeMaand(doelMaand);
+  document.getElementById('ciEyebrow').textContent = mNaam(doelMaand);
+  document.getElementById('ciTitel').textContent = 'Werk ' + mMaand(doelMaand) + ' bij';
 
   if(!rekeningen().length){
     document.getElementById('ciLead').textContent = 'Je hebt nog geen rekeningen. Voeg er eerst één toe, dan staat deze maand binnen een minuut klaar.';
@@ -1060,16 +1077,27 @@ function renderCheckin(){
   }
 
   if(vorig){
-    const gemist = mDiff(vorig, HUIDIGE) - 1;
+    const gemist = mDiff(vorig, doelMaand) - 1;
     document.getElementById('ciLead').textContent = 'Vorige stand: ' + mNaam(vorig) + ', ' + eur(totaalOp(vorig)) + '.' +
-      (gemist > 0 ? ' Je sloeg ' + gemist + ' ' + (gemist === 1 ? 'maand' : 'maanden') + ' over. Dat mag, we rekenen het verschil over de hele periode uit.' : '');
+      (gemist > 0 ? ' Je sloeg ' + gemist + ' ' + (gemist === 1 ? 'maand' : 'maanden') + ' over. Die kun je met de maandkiezer hieronder alsnog invullen.' : '');
   }else{
-    document.getElementById('ciLead').textContent = 'Dit is je eerste maand. Je vult nu de stand in, vanaf volgende maand zie je hier wat er veranderde.';
+    document.getElementById('ciLead').textContent = 'Dit is je eerste maand. Je vult nu de stand in, vanaf volgende maand zie je hier wat er veranderde. Een eerdere maand terugvullen kan met de maandkiezer hieronder.';
   }
 
   let h = '';
+  /* maandkiezer: ook een eerdere maand is alsnog in te vullen */
+  const vorigeK = mAdd(doelMaand,-1), volgendeK = mAdd(doelMaand,1);
+  h += '<div class="card"><div class="rowline">' +
+    '<button class="btn sec sm" type="button" id="ciTerug">‹ ' + mKort(vorigeK) + '</button>' +
+    '<span class="grow" style="text-align:center"><input type="month" id="ciMaand" value="' + doelMaand + '" max="' + HUIDIGE + '" aria-label="Welke maand werk je bij" style="max-width:175px;display:inline-block;min-height:44px;padding:8px 10px"></span>' +
+    (volgendeK <= HUIDIGE ? '<button class="btn sec sm" type="button" id="ciVooruit">' + mKort(volgendeK) + ' ›</button>' : '<span aria-hidden="true" style="min-width:78px"></span>') +
+    '</div>' +
+    (doelMaand !== HUIDIGE
+      ? '<p class="note">Je vult nu een eerdere maand in. Daarna ga je met de pijl weer vooruit naar ' + mNaam(HUIDIGE) + '.</p>'
+      : '<p class="note">Een eerdere maand gemist of nog een startstand van vóór nu? Ga met de pijl terug en vul hem alsnog in; het overzicht rekent alles opnieuw door.</p>') +
+    '</div>';
   if(demoAan){
-    const leeg = !Object.keys((S().maanden[HUIDIGE]||{saldi:{}}).saldi).length;
+    const leeg = !Object.keys((S().maanden[doelMaand]||{saldi:{}}).saldi).length;
     h += '<div class="card" style="background:var(--sand2);border:none"><p class="note" style="margin:0 0 8px;color:var(--ink2)">' +
       (leeg ? 'De voorbeeldsaldo\'s staan uit. Vul ze zelf in of zet ze terug.' : 'De voorbeeldmaand is al ingevuld. Maak hem leeg om de invoer zelf te proberen.') + '</p>' +
       '<div class="btnrow" style="margin:0"><button class="btn sec sm" type="button" id="demoToggleSaldi">' +
@@ -1077,11 +1105,11 @@ function renderCheckin(){
   }
   rs.forEach(r => {
     const vorS = vorig ? saldoOp(r, vorig) : null;
-    const eigen = S().maanden[HUIDIGE] && S().maanden[HUIDIGE].saldi[r.id];
+    const eigen = S().maanden[doelMaand] && S().maanden[doelMaand].saldi[r.id];
     const waarde = (r.id in concept) ? concept[r.id] : (typeof eigen === 'number' ? String(eigen).replace('.',',') : '');
     const klaar = waarde !== '' && !isNaN(parseBedrag(waarde));
-    const uit = obVan(HUIDIGE, r.id), inn = obNaar(HUIDIGE, r.id);
-    const m = S().maanden[HUIDIGE];
+    const uit = obVan(doelMaand, r.id), inn = obNaar(doelMaand, r.id);
+    const m = S().maanden[doelMaand];
     const extra = r.type === 'belegging' ? ((m && m.inleg[r.id]) || '') : ((m && m.rente[r.id]) || '');
 
     let chips = '';
@@ -1089,13 +1117,15 @@ function renderCheckin(){
       if(o.van === r.id) chips += '<span class="chip gold">− ' + eur(o.bedrag) + ' naar ' + esc(kortNaam(o.naar)) + '</span>';
       if(o.naar === r.id) chips += '<span class="chip gold">+ ' + eur(o.bedrag) + ' van ' + esc(kortNaam(o.van)) + '</span>';
     });
-    if(r.opgehevenPer === HUIDIGE) chips += '<span class="chip warn">Opgeheven deze maand</span>';
+    if(r.opgehevenPer === doelMaand) chips += '<span class="chip warn">Opgeheven deze maand</span>';
 
     h += '<div class="acc' + (klaar ? ' done' : '') + '" data-acc="' + r.id + '">' +
       '<div class="rowline"><span class="chip"><i style="background:' + kleurVan(r.type) + '"></i>' + TYPES[r.type] + '</span><span class="grow"></span>' +
       (klaar ? '<span class="chip moss">Bijgewerkt</span>' : '<span class="chip">Vul later aan</span>') + '</div>' +
       '<h3 style="margin-top:8px">' + esc(r.naam) + '</h3>' +
-      '<p class="prev">' + (vorS === null ? 'Nieuw deze maand' : 'Vorige stand ' + eur(vorS)) + '</p>' +
+      '<p class="prev">' + (r.startMaand > doelMaand
+        ? 'Loopt nu mee vanaf ' + mNaam(r.startMaand) + '. Vul je hier een saldo in, dan begint de historie al in ' + mNaam(doelMaand) + '.'
+        : (vorS === null ? 'Nieuw deze maand' : 'Vorige stand ' + eur(vorS))) + '</p>' +
       (chips ? '<div class="mut-chips">' + chips + '</div>' : '') +
       '<label class="f" for="in-' + r.id + '">' + (r.type === 'belegging' ? 'Totale waarde nu' : 'Saldo nu') + '</label>' +
       '<div class="amt"><span class="eur">€</span><input type="text" inputmode="decimal" id="in-' + r.id + '" data-saldo="' + r.id + '" value="' + esc(waarde) + '" placeholder="' + (vorS === null ? '0' : String(vorS).replace('.',',')) + '" aria-describedby="hint-' + r.id + '"></div>' +
@@ -1115,8 +1145,8 @@ function renderCheckin(){
   });
 
   h += '<div class="btnrow"><button class="btn gh w" type="button" id="ciAdd">+ Rekening toevoegen</button></div>';
-  const open = rs.filter(r => !ingevuld(r,HUIDIGE) && !(r.id in concept && concept[r.id] !== '')).length;
-  h += '<p class="note" style="margin-top:14px">Afronden kan altijd. Rekeningen die je nu leeg laat schuiven door met hun vorige stand en houden het label “vul later aan”.</p>';
+  const open = rs.filter(r => !ingevuld(r,doelMaand) && !(r.id in concept && concept[r.id] !== '')).length;
+  h += '<p class="note" style="margin-top:14px">Afronden kan altijd. Rekeningen die je nu leeg laat schuiven door met hun vorige stand en houden het label “vul later aan”. Een nieuwe maand hoef je niet te openen of af te sluiten: op de eerste van de maand staat die hier vanzelf klaar.</p>';
   body.innerHTML = h;
 
   body.querySelectorAll('[data-saldo]').forEach(inp => {
@@ -1125,7 +1155,7 @@ function renderCheckin(){
   });
   body.querySelectorAll('[data-extra]').forEach(inp => {
     inp.addEventListener('change', () => {
-      const m = maandData(HUIDIGE, true);
+      const m = maandData(doelMaand, true);
       const v = parseBedrag(inp.value);
       const r = rekById(inp.dataset.extra);
       const pot = r.type === 'belegging' ? m.inleg : m.rente;
@@ -1138,10 +1168,16 @@ function renderCheckin(){
   body.querySelectorAll('[data-heropen]').forEach(b => b.addEventListener('click', () => {
     const r = rekById(b.dataset.heropen); r.opgehevenPer = null; bewaar(); renderAlles(); toast('Opheffing teruggedraaid.');
   }));
+  const ciT = document.getElementById('ciTerug');
+  if(ciT) ciT.addEventListener('click', () => zetDoelMaand(mAdd(doelMaand,-1)));
+  const ciV = document.getElementById('ciVooruit');
+  if(ciV) ciV.addEventListener('click', () => zetDoelMaand(mAdd(doelMaand,1)));
+  const ciM = document.getElementById('ciMaand');
+  if(ciM) ciM.addEventListener('change', () => zetDoelMaand(ciM.value));
   document.getElementById('ciAdd').addEventListener('click', () => { resetForm(); ga('rekeningen'); document.getElementById('accNaam').focus(); });
   const dt = document.getElementById('demoToggleSaldi');
   if(dt) dt.addEventListener('click', () => {
-    const m = maandData(HUIDIGE, true);
+    const m = maandData(doelMaand, true);
     const leeg = !Object.keys(m.saldi).length;
     if(leeg){ Object.keys(demoStore._voorbeeld).forEach(id => { m.saldi[id] = demoStore._voorbeeld[id]; }); m.afgerond = true; }
     else { m.saldi = {}; m.afgerond = false; }
@@ -1165,35 +1201,48 @@ function kortNaam(id){ const r = rekById(id); return r ? r.naam.replace(/\s*\(de
 
 function conceptTotaal(){
   let t = 0;
-  rekeningen().filter(r => actief(r,HUIDIGE)).forEach(r => {
+  checkinRekeningen().forEach(r => {
     let v;
     if(r.id in concept && concept[r.id] !== '' && !isNaN(parseBedrag(concept[r.id]))) v = parseBedrag(concept[r.id]);
-    else v = saldoOp(r, HUIDIGE);
-    if(r.opgehevenPer === HUIDIGE) v = 0;
+    else v = actief(r, doelMaand) ? saldoOp(r, doelMaand) : null;
+    if(r.opgehevenPer === doelMaand) v = 0;
     if(typeof v === 'number') t += v;
   });
   return r2(t);
 }
 function werkBalkBij(){
-  const rs = rekeningen().filter(r => actief(r,HUIDIGE));
-  const klaar = rs.filter(r => (r.id in concept ? (concept[r.id] !== '' && !isNaN(parseBedrag(concept[r.id]))) : ingevuld(r,HUIDIGE))).length;
-  document.getElementById('sbLabel').textContent = klaar + ' van ' + rs.length + ' bijgewerkt';
+  const rs = checkinRekeningen();
+  const klaar = rs.filter(r => (r.id in concept ? (concept[r.id] !== '' && !isNaN(parseBedrag(concept[r.id]))) : ingevuld(r,doelMaand))).length;
+  document.getElementById('sbLabel').textContent = mKort(doelMaand) + ' · ' + klaar + ' van ' + rs.length + ' bijgewerkt';
   document.getElementById('sbTotal').textContent = eur(conceptTotaal());
+  document.getElementById('sbAction').textContent = mMaand(doelMaand) + ' afronden';
 }
 
 function rondAf(){
-  const m = maandData(HUIDIGE, true);
-  rekeningen().filter(r => actief(r,HUIDIGE)).forEach(r => {
+  const k = doelMaand;
+  const m = maandData(k, true);
+  checkinRekeningen().forEach(r => {
     if(r.id in concept){
       const v = parseBedrag(concept[r.id]);
-      if(!isNaN(v)) m.saldi[r.id] = v;
+      if(!isNaN(v)){
+        m.saldi[r.id] = v;
+        if(r.startMaand > k) r.startMaand = k;   /* eerdere stand ingevuld: de historie begint dan hier */
+      }
     }
-    if(r.opgehevenPer === HUIDIGE) m.saldi[r.id] = 0;
+    if(r.opgehevenPer === k) m.saldi[r.id] = 0;
   });
   m.afgerond = true;
   concept = {};
-  bewaar(); renderAlles(); ga('overzicht');
-  toast(mMaand(HUIDIGE) + ' staat erin.');
+  bewaar();
+  if(k < HUIDIGE){
+    /* eerdere maand teruggevuld: meteen door naar de volgende maand */
+    doelMaand = mAdd(k,1);
+    renderAlles();
+    toast(mMaand(k) + ' staat erin. Door naar ' + mNaam(doelMaand) + '.');
+  }else{
+    renderAlles(); ga('overzicht');
+    toast(mMaand(k) + ' staat erin.');
+  }
 }
 
 /* ============================================================
@@ -1306,7 +1355,7 @@ function renderOverzicht(){
   h += '<div class="btnrow"><button class="btn sec w" type="button" id="ovBijwerken">' + mMaand(HUIDIGE) + ' bijwerken</button></div>';
   h += footHtml();
   body.innerHTML = h;
-  document.getElementById('ovBijwerken').addEventListener('click', () => ga('checkin'));
+  document.getElementById('ovBijwerken').addEventListener('click', () => { zetDoelMaand(HUIDIGE); ga('checkin'); });
   document.getElementById('actBtn').addEventListener('click', act.doe);
 }
 function drow(kleur, naam, sub, val){
@@ -1342,9 +1391,9 @@ function maandActie(k, d){
   const n = gevuldeMaanden().length;
   if(n < 3) return {
     titel: 'Zet je oudere saldo\'s erbij',
-    tekst: 'Met drie of meer maanden wordt je gemiddelde spaargedrag betrouwbaarder en zegt de vooruitblik meer.',
-    knop: 'Rekening of maand toevoegen',
-    doe: () => ga('rekeningen')
+    tekst: 'Met drie of meer maanden wordt je gemiddelde spaargedrag betrouwbaarder en zegt de vooruitblik meer. Met de maandkiezer in de check-in vul je een eerdere maand alsnog in.',
+    knop: 'Eerdere maand invullen',
+    doe: () => { zetDoelMaand(mAdd(HUIDIGE,-1)); ga('checkin'); }
   };
   return {
     titel: 'Zet ' + MND[mParse(mAdd(k,1)).m-1] + ' alvast in je agenda',
@@ -1374,7 +1423,7 @@ document.getElementById('veil').addEventListener('click', sluitSheet);
 document.addEventListener('keydown', e => { if(e.key === 'Escape') sluitSheet(); });
 
 function opties(exclId){
-  return rekeningen().filter(r => r.id !== exclId && actief(r,HUIDIGE) && !r.opgehevenPer)
+  return rekeningen().filter(r => r.id !== exclId && actief(r,doelMaand) && !r.opgehevenPer)
     .map(r => '<option value="' + r.id + '">' + esc(r.naam) + '</option>').join('');
 }
 function verplaatsSheet(id){
@@ -1391,7 +1440,7 @@ function verplaatsSheet(id){
     const b = parseBedrag(document.getElementById('vpBed').value);
     const naar = document.getElementById('vpNaar').value;
     if(isNaN(b) || b <= 0){ toast('Vul een bedrag boven nul in.'); return; }
-    const m = maandData(HUIDIGE, true);
+    const m = maandData(doelMaand, true);
     m.overboekingen.push({id:uid(), van:id, naar, bedrag:b});
     bewaar(); sluitSheet(); renderAlles();
     toast(eur(b) + ' verplaatst. Telt niet als groei.');
@@ -1399,9 +1448,9 @@ function verplaatsSheet(id){
 }
 function opheffenSheet(id){
   const r = rekById(id);
-  const saldo = saldoOp(r, HUIDIGE) || 0;
+  const saldo = saldoOp(r, doelMaand) || 0;
   const opt = opties(id);
-  openSheet('<h2 id="sheetTitel">Rekening opheffen</h2><p class="note">' + esc(r.naam) + ' sluit in ' + mNaam(HUIDIGE) + '. De historie blijft staan, de rekening verdwijnt alleen uit je invoerlijst.</p>' +
+  openSheet('<h2 id="sheetTitel">Rekening opheffen</h2><p class="note">' + esc(r.naam) + ' sluit in ' + mNaam(doelMaand) + '. De historie blijft staan, de rekening verdwijnt alleen uit je invoerlijst.</p>' +
     '<label class="f" for="opBed">Eindsaldo</label><div class="amt"><span class="eur">€</span><input type="text" inputmode="decimal" id="opBed" value="' + String(saldo).replace('.',',') + '"></div>' +
     '<label class="f" for="opNaar">Waar gaat dat saldo heen</label><select id="opNaar">' + opt + '<option value="__uit">Opgenomen, blijft niet in dit overzicht</option></select>' +
     '<div class="btnrow"><button class="btn" type="button" id="opOk">Opheffen</button><button class="btn sec" type="button" id="opNo">Annuleren</button></div>');
@@ -1410,9 +1459,9 @@ function opheffenSheet(id){
     const b = parseBedrag(document.getElementById('opBed').value);
     const naar = document.getElementById('opNaar').value;
     if(isNaN(b) || b < 0){ toast('Vul het eindsaldo in.'); return; }
-    const m = maandData(HUIDIGE, true);
+    const m = maandData(doelMaand, true);
     if(naar !== '__uit' && b > 0) m.overboekingen.push({id:uid(), van:id, naar, bedrag:b});
-    r.opgehevenPer = HUIDIGE;
+    r.opgehevenPer = doelMaand;
     m.saldi[id] = 0;
     delete concept[id];
     bewaar(); sluitSheet(); renderAlles();
